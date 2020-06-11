@@ -6,8 +6,7 @@
   "scripts": {
     "start": "yarn ts-node src/server.ts",
     "dev": "yarn ts-node-dev --transpileOnly --ignore-watch node_modules src/server.ts",
-    "migrate": "knex  --knexfile knexfile.ts migrate:latest",
-    "seed": "knex seed:run"
+    "migrate": "knex  --knexfile knexfile.ts migrate:latest"
   },
   "dependencies": {
     "@types/cors": "^2.8.6",
