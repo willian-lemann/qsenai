@@ -4,7 +4,7 @@ import QuestionService from '../services/QuestionService';
 
 const questionService = new QuestionService();
 
-class UserController {
+class QuestionController {
     async Index(request: Request, response: Response) {
         const users = await questionService.Index();
 
@@ -20,4 +20,4 @@ class UserController {
     }
 };
 
-export default ItemsController;
+export default QuestionController;

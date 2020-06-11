@@ -1,19 +1,18 @@
 import knex from '../database/connection';
 
-interface NewQuestion {
-    subject: string,
+interface NewAnswer {
     content: string,
-    user_id: number,
+    question_id: number,
 }
 
-class QuestionRepository {
+class AnswerRepository {
     async Index() {
         return await knex('question').select('*');
     }
 
-    async Create(newQuestion: NewQuestion) {
-        return await knex('question').insert(newQuestion);
+    async Create(newAnswer: NewAnswer) {
+        return await knex('question').insert(newAnswer);
     }
 }
 
-export default QuestionRepository;
+export default AnswerRepository;

@@ -1,17 +1,21 @@
 import express from 'express';
 const routes = express.Router();
 
-import PointsController from './controllers/PointsController';
-import ItemsController from './controllers/ItemsController';
+import UserController from './controllers/UserController';
+import QuestionController from './controllers/QuestionController';
+import AnswerController from './controllers/AnswerController';
 
-const pointsController = new PointsController();
-const itemsController = new ItemsController();
+const userController = new UserController();
+const questionController = new QuestionController();
+const answerController = new AnswerController();
 
-routes.get('/points', pointsController.Index);
-routes.get('/points/:id', pointsController.Show);
-routes.post('/points', pointsController.Create);
+routes.get('/users', userController.Index);
+routes.post('/users', userController.Create);
 
-routes.get('/items', itemsController.Index)
+routes.get('/questions', questionController.Index);
+routes.post('/questions', questionController.Create);
 
+routes.get('/answers', answerController.Index);
+routes.post('/answers', answerController.Create);
 
 export default routes;
