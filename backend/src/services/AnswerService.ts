@@ -8,8 +8,8 @@ interface NewAnswer {
 }
 
 class AnswerService {
-    async Index() {
-        const answers = await answerRepository.Index();
+    async Index(questionId: number) {
+        const answers = await answerRepository.Index(questionId);
 
         return answers;
     }

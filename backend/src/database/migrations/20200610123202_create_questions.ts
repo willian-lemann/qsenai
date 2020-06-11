@@ -10,7 +10,7 @@ export async function up(knex: Knex): Promise<any> {
             .references('id')
             .inTable('user');
 
-        table.timestamp('created_at', { precision: 6, useTz: true });
+        table.timestamp('created_at');
     });
 }
 

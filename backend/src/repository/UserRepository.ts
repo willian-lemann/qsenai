@@ -9,11 +9,11 @@ interface NewUser {
 
 class UserRepository {
     async Index() {
-        return await knex('users').select('*');
+        return await knex('user').select('*');
     }
 
-    async Create(newUSer: NewUser) {
-        return await knex('users').insert(newUSer);
+    async Create(newUser: NewUser) {
+        return await knex('user').insert(newUser);
     }
 }
 

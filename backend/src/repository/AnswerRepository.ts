@@ -6,12 +6,15 @@ interface NewAnswer {
 }
 
 class AnswerRepository {
-    async Index() {
-        return await knex('question').select('*');
+    async Index(questionId: number) {
+        return await knex('answer')
+            .select('answer.*')
+            .join('question', 'question.id', '=', 'answer.question_id')
+            .where('question.id', questionId);
     }
 
     async Create(newAnswer: NewAnswer) {
-        return await knex('question').insert(newAnswer);
+        return await knex('answer').insert(newAnswer);
     }
 }
 

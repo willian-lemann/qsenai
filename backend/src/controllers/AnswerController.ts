@@ -6,17 +6,18 @@ const answerService = new AnswerService();
 
 class AnswerController {
     async Index(request: Request, response: Response) {
-        const users = await answerService.Index();
+        const { question_id } = request.query;
+        const answers = await answerService.Index(Number(question_id));
 
-        return response.json(users);
+        return response.json(answers);
     }
 
     async Create(request: Request, response: Response) {
         const data = request.body;
 
-        const user = await answerService.Create(data);
+        const answer = await answerService.Create(data);
 
-        return response.json(user);
+        return response.json(answer);
     }
 };
 

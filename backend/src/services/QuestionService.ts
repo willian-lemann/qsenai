@@ -9,8 +9,8 @@ interface NewQuestion {
 }
 
 class QuestionService {
-    async Index() {
-        const questions = await questionRepository.Index();
+    async Index(userId: number) {
+        const questions = await questionRepository.Index(userId);
 
         return questions;
     }

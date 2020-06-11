@@ -13,7 +13,7 @@ class UserController {
 
     async Create(request: Request, response: Response) {
         const data = request.body;
-
+        console.log(data)
         const user = await userService.Create(data);
 
         return response.json(user);

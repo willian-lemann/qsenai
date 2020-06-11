@@ -6,7 +6,8 @@ const questionService = new QuestionService();
 
 class QuestionController {
     async Index(request: Request, response: Response) {
-        const users = await questionService.Index();
+        const { user_id } = request.query;
+        const users = await questionService.Index(Number(user_id));
 
         return response.json(users);
     }
