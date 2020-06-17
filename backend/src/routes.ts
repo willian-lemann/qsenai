@@ -1,21 +1,23 @@
 import express from 'express';
+import authMiddlwware from './middlewares/auth';
+
 const routes = express.Router();
 
-import UserController from './controllers/UserController';
+import AuthController from './controllers/AuthController';
 import QuestionController from './controllers/QuestionController';
 import AnswerController from './controllers/AnswerController';
 
-const userController = new UserController();
+const authController = new AuthController();
 const questionController = new QuestionController();
 const answerController = new AnswerController();
 
-routes.get('/users', userController.Index);
-routes.post('/users', userController.Create);
+routes.post('/register', authController.Register);
+routes.post('/authenticate', authController.Authenticate);
 
-routes.get('/questions', questionController.Index);
-routes.post('/questions', questionController.Create);
+routes.get('/questions', authMiddlwware, questionController.Index);
+routes.post('/questions', authMiddlwware, questionController.Create);
 
-routes.get('/answers', answerController.Index);
-routes.post('/answers', answerController.Create);
+routes.get('/answers', authMiddlwware, answerController.Index);
+routes.post('/answers', authMiddlwware, answerController.Create);
 
 export default routes;
