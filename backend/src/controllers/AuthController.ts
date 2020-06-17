@@ -4,7 +4,7 @@ import AuthService from '../services/AuthService';
 
 const authService = new AuthService();
 
-class UserController {
+class AuthController {
     async Register(request: Request, response: Response) {
         return await authService.Register(request, response);
     }
@@ -14,4 +14,4 @@ class UserController {
     }
 };
 
-export default UserController;
+export default AuthController;
