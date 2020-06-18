@@ -1,0 +1,23 @@
+header {
+    background-color: #7159c1;
+    color: white;
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header .button {
+    height: 60px;
+    width: 100px;
+    border: 0;
+    background-color: #9a8bca;
+    border-radius: 10px;
+    color: white;
+    outline: none;
+    cursor: pointer;
+}
+
+header button:hover {
+    opacity: 0.9;
+}
