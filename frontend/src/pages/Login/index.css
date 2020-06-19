@@ -1,4 +1,4 @@
-.register-container {
+.login-container {
     background-color: #FF5617;
     height: 100vh;
     width: 100%;
@@ -8,7 +8,7 @@
     align-items: center;
 }
 
-.register-container .register-content {
+.login-container .login-content {
     width: 100%;
     height: 500px;
     width: 100%;
@@ -17,7 +17,7 @@
     align-items: center;
 }
 
-.register-container .register-content .form-container {
+.login-container .login-content .form-container {
     height: 300px;
     width: 400px;
     display: flex;

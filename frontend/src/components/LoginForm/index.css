@@ -1,0 +1,43 @@
+.login-container .login-content .form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container .login-content .form-container form input {
+    text-align: center;
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 38px;
+    height: 62px;
+    width: 390px;
+    border-radius: 8px;
+    border: 0;
+    outline: none;
+}
+
+.login-container .login-content .form-container form .actions-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-container .login-content .form-container form .actions-container a {
+    font-size: 18px;
+    color: #f0f0f0;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.login-container .login-content .form-container form button {
+    background: transparent;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #f0f0f0;
+    width: 90px;
+    height: 24px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}

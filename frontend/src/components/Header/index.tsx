@@ -4,13 +4,15 @@ import './index.css';
 
 import Menu from 'react-hamburger-menu';
 
-import Button from '../Button';
-
 interface HeaderProps {
-    title: string,
+    data: {
+        id: number,
+        title: string,
+        price: string,
+    }
 }
 
-const Header: React.FC<HeaderProps> = ({ title }) => {
+const Header: React.FC<HeaderProps> = ({ data }) => {
 
     return (
         <header>
@@ -21,9 +23,9 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
                 rotate={0}
                 animationDuration={0.4}
             />
-            <h1>{title}</h1>
+            <h1>{data.title}</h1>
             <Link to='/register'>
-                <Button />
+
             </Link>
         </header>
     )

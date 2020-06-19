@@ -1,25 +1,25 @@
 import React from 'react';
-
 import './index.css';
 
 import logo from '../../assets/logo-senai.png';
 
-import RegisterForm from '../../components/RegisterForm';
+import LoginForm from '../../components/LoginForm';
 
-const Register: React.FC = () => {
+const Login: React.FC = () => {
+
     return (
-        <div className="register-container">
-            <div className="register-content">
+        <div className="login-container">
+            <div className="login-content">
                 <section>
                     <img src={logo} alt="logo senai" />
                 </section>
 
                 <section className="form-container">
-                    <RegisterForm />
+                    <LoginForm />
                 </section>
             </div>
         </div>
     );
 }
 
-export default Register;
+export default Login;
