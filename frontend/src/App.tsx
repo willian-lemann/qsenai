@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import './global.css';
 
-import Routes from './routes';
+import Routes from './Routes/routes';
 
 const App: React.FC = () => (
   <>
