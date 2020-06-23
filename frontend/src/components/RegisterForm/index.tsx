@@ -1,83 +1,77 @@
-import React, { useState, FormEvent, ChangeEvent  } from 'react';
+import React, {
+    useState,
+    FormEvent,
+    ChangeEvent
+} from 'react';
 import { Link } from 'react-router-dom';
-import api from '../../service/api';
 
 import './index.css';
 
 import { FiLogIn } from 'react-icons/fi';
-
-interface NewUser {
-    user: {
-        name: string,
-        email: string,
-        graduation: string
-    },
-    token: string
-}
+import api from '../../service/api';
 
 const RegisterForm: React.FC = () => {
-
-    const [formData, setFormData] = useState({
+    const [selectedGraduation, SetSelectedGraduation] = useState('');
+    const [formData, SetFormData] = useState({
         name: '',
         email: '',
         password: '',
-        graduation: '',
+        graduation: ''
     });
 
-    const HandleRegister = async (event: FormEvent) => {
-        event.preventDefault();
-
-        const { name, email, password, graduation } = formData;
-    
-        const data = { name, email, password, graduation };
-
-        console.log(data);
-
-    
-        // data.append('name', name);
-        // data.append('email', email);
-        // data.append('password', password);
-        // data.append('graduation', graduation);
-    
-        // const response = await api.get('/register');
-    
-        // setUser(response.data);
-    
-    
-        alert('Registo criado com sucesso');
-    }
-
     const HandleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { name, value }=event.target;
-        setFormData({ ...formData, [name] :  value});
+        const { name, value } = event.target;
+        SetFormData({ ...formData, [name]: value });
     }
 
     const HandleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        const { name, value }=event.target;
-        setFormData({ ...formData, [name]: value });
+        const { value } = event.target;
+        SetSelectedGraduation(value);
     }
-    
+
+    const HandleRegister = (event: FormEvent) => {
+        event.preventDefault();
+
+        const { name, email, password } = formData;
+
+        const graduation = selectedGraduation;
+
+        const data = {
+            name,
+            email,
+            password,
+            graduation           
+        }
+
+        console.log('foi: ', data);
+
+        api.post('/register', data)
+            .then(response => console.log('retorno: ' , response.data));       
+    }
+
     return (
         <form onSubmit={HandleRegister}>
             <input
-                type="text"
                 name='name'
-                placeholder='Digite seu nome' 
+                type="text"
+                placeholder='Digite seu nome'
                 onChange={HandleInputChange}
             />
-            <select name="graduation"  id="graduation" onChange={HandleSelectChange}>
-                <option value="0">Selecione uma opção</option>
+            <select name="graduation" id="graduation" onChange={HandleSelectChange}>
+                <option value="0">Selecione seu curso</option>
                 <option value="Telecom">Telecom</option>
                 <option value="Redes de computadores">Redes de computadores</option>
                 <option value="Analise e desenvolvimento de sistemas">Analise e desenvolvimento de sistemas</option>
             </select>
-            <input type="text"
-                placeholder='Email de usuário'
+            <input
                 name='email'
+                type="email"
+                placeholder='Digite seu e-mail'
                 onChange={HandleInputChange}
             />
-            <input type="password"
+            <input
                 name='password'
+                type="password"
                 placeholder='Senha'
                 onChange={HandleInputChange}
             />

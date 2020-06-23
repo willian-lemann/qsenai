@@ -6,14 +6,15 @@ import logo from '../../assets/logo-senai.png';
 
 import RegisterForm from '../../components/RegisterForm';
 
+import Logo from '../../components/Logo'
+
+
 const Register: React.FC = () => {
     return (
         <div className="register-container">
             <div className="register-content">
-                <section>
-                    <img src={logo} alt="logo senai" />
-                </section>
-
+            
+                <Logo />
                 <section className="form-container">
                     <RegisterForm />
                 </section>

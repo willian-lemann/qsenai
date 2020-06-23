@@ -4,15 +4,17 @@ import './index.css';
 import logo from '../../assets/logo-senai.png';
 
 import LoginForm from '../../components/LoginForm';
+import Logo from '../../components/Logo'
 
 const Login: React.FC = () => {
 
     return (
         <div className="login-container">
             <div className="login-content">
-                <section>
+                {/* <section>
                     <img src={logo} alt="logo senai" />
-                </section>
+                </section> */}
+                <Logo />
 
                 <section className="form-container">
                     <LoginForm />
