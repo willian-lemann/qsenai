@@ -3,17 +3,17 @@
     flex-direction: column;
 }
 
-.register-container .register-content .form-container form select{
+.register-container .register-content .form-container form select {
+    text-align: center;
+    font-size: 18px;
+    color: #444;
     margin-bottom: 38px;
     height: 62px;
+    width: 390px;
     border-radius: 8px;
-    outline: none;
     border: 0;
-    color: #444;
-   text-align: center;
-   display: flex;
-   justify-content: center;
-   align-items: center;
+    outline: none;
+    text-align-last:center;
 }
 
 .register-container .register-content .form-container form input {

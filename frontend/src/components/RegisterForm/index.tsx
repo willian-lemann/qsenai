@@ -8,19 +8,20 @@ import { Link } from 'react-router-dom';
 import './index.css';
 
 import { FiLogIn } from 'react-icons/fi';
+import api from '../../service/api';
 
 const RegisterForm: React.FC = () => {
     const [selectedGraduation, SetSelectedGraduation] = useState('');
     const [formData, SetFormData] = useState({
         name: '',
         email: '',
-        password: ''
+        password: '',
+        graduation: ''
     });
 
     const HandleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         SetFormData({ ...formData, [name]: value });
-        console.log(formData)
     }
 
     const HandleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -33,14 +34,19 @@ const RegisterForm: React.FC = () => {
 
         const { name, email, password } = formData;
 
+        const graduation = selectedGraduation;
+
         const data = {
             name,
             email,
             password,
-            selectedGraduation
+            graduation           
         }
 
+        console.log('foi: ', data);
 
+        api.post('/register', data)
+            .then(response => console.log('retorno: ' , response.data));       
     }
 
     return (
@@ -52,7 +58,7 @@ const RegisterForm: React.FC = () => {
                 onChange={HandleInputChange}
             />
             <select name="graduation" id="graduation" onChange={HandleSelectChange}>
-                <option value="0">Selecione uma opção</option>
+                <option value="0">Selecione seu curso</option>
                 <option value="Telecom">Telecom</option>
                 <option value="Redes de computadores">Redes de computadores</option>
                 <option value="Analise e desenvolvimento de sistemas">Analise e desenvolvimento de sistemas</option>
