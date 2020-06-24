@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Não importa o arquivo SQL porque conflita quando abre o node
+# Ele modifica as tabelas, e sempre se modifica
+*.sqlite
