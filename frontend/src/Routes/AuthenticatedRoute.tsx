@@ -8,7 +8,7 @@ interface PrivateRouteProps {
     exact: boolean,
 }
 
-const isAuthenticate = false;
+const isAuthenticate = true;
 
 const AuthenticatedRoute: React.FC<PrivateRouteProps> = ({ component: Component, ...otherProps }) => (
     <Route {...otherProps} render={props => (
