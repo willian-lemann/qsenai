@@ -11,8 +11,8 @@ const LoginForm: React.FC = () => {
 
     return (
         <form>
-            <input type="text" placeholder='Username' />
-            <input type="password" placeholder='Password' />
+            <input type="text" placeholder='Usuário' />
+            <input type="password" placeholder='Senha' />
             <div className="actions-container">
                 <Link to='/register'>Não tem conta? Cadastre-se</Link>
                 <button>Entrar <FiLogIn size={24} /></button>
