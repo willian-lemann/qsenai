@@ -2,8 +2,6 @@ import React from 'react';
 
 import './index.css';
 
-import logo from '../../assets/logo-senai.png';
-
 import RegisterForm from '../../components/RegisterForm';
 
 import Logo from '../../components/Logo'
