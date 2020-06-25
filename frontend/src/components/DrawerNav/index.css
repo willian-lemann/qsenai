@@ -1,15 +1,4 @@
-.root {
-    display: flex;
-}
-
-.drawerPaper {
-    width: 300px;
-    display: flex;
-    align-items: center;
-}
-
 .drawer-container {
-    background-color: #FF5617;
     height: 100%;
     width: 100%;
     display: flex;
@@ -27,9 +16,10 @@
 
 .drawer-container .user-info-section .arrowLeftIcon {
     cursor: pointer;
+    color: white;
     border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    width: 28px;
+    height: 28px;
     transition: background 0.3s;
 }
 

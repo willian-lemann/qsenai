@@ -11,7 +11,6 @@ const Register: React.FC = () => {
     return (
         <div className="register-container">
             <div className="register-content">
-            
                 <Logo />
                 <section className="form-container">
                     <RegisterForm />
