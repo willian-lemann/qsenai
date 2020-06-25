@@ -16,6 +16,7 @@ class QuestionController {
 
     async Create(request: Request, response: Response) {
         const data = request.body;
+        console.log(data);
 
         const user = await questionService.Create(data);
 
