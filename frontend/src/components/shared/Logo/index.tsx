@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './index.css';
-import logo from '../../assets/logo-senai.png';
+import logo from '../../../assets/logo-senai.png';
 
 
 const Logo: React.FC = () => {

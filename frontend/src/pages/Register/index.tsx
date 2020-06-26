@@ -4,7 +4,7 @@ import './index.css';
 
 import RegisterForm from '../../components/RegisterForm';
 
-import Logo from '../../components/Logo'
+import Logo from '../../components/shared/Logo'
 
 
 const Register: React.FC = () => {

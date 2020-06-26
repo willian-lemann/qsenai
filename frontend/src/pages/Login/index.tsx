@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 
 import LoginForm from '../../components/LoginForm';
-import Logo from '../../components/Logo'
+import Logo from '../../components/shared/Logo'
 
 const Login: React.FC = () => {
 
