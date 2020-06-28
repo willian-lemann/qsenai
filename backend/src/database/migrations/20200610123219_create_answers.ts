@@ -8,6 +8,10 @@ export async function up(knex: Knex): Promise<any> {
             .notNullable()
             .references('id')
             .inTable('question');
+        table.integer('user_id')
+            .notNullable()
+            .references('id')
+            .inTable('user');
     });
 }
 

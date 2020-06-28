@@ -19,6 +19,30 @@ class AnswerController {
 
         return response.json(answer);
     }
+
+    async Update(request: Request, response: Response) {
+        const data = request.body;
+
+        console.log('simples: ', data);
+
+        const user = await answerService.Update(data);
+
+        return response.json(user);
+    }
+
+    async Delete(request: Request, response: Response) {
+        const { id } = request.query;
+
+        var answer = 0;
+        try {
+            answer = await answerService.Delete(Number(id));
+
+        } catch (error) {
+            return response.status(400).json({ error: 'Answer delete failed.' })
+        }
+
+        return response.json(answer);
+    }
 };
 
 export default AnswerController;
