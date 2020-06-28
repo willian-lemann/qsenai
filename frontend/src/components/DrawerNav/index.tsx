@@ -10,40 +10,33 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemText from '@material-ui/core/ListItemText';
-import Menu from 'react-hamburger-menu';
 import { GoChevronLeft } from 'react-icons/go';
 
 import './index.css'
 
-import Header from '../../components/Header';
+import Header from '../Header';
+import UserHeader from '../UserHeader';
+import { FiUser } from 'react-icons/fi';
 
-const drawerWidth = 300;
+const drawerWidth = 270;
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             display: 'flex',
         },
+
         appBar: {
-            zIndex: theme.zIndex.drawer + 1,
+            zIndex: theme.zIndex.appBar + 1,
             transition: theme.transitions.create(['width', 'margin'], {
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.leavingScreen,
             }),
-            background: '#FF5617',
+            height: 80,
         },
 
         appBarShift: {
-            marginLeft: drawerWidth,
             width: `calc(100% - ${drawerWidth}px)`,
-            transition: theme.transitions.create(['width', 'margin'], {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-        },
-
-        menuButton: {
-            marginRight: 36,
         },
 
         hide: {
@@ -81,26 +74,21 @@ const useStyles = makeStyles((theme: Theme) =>
         toolbar: {
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'flex-end',
-            padding: theme.spacing(0, 1),
+            justifyContent: 'center',
             ...theme.mixins.toolbar,
+        },
+
+        content: {
+            marginTop: 45,
+            background: '#f0f0f0',
+            width: '100%',
         },
     }),
 );
 
-const MiniDrawer: React.FC = ({ children }) => {
-
+const DrawerNav: React.FC = ({ children }) => {
     const classes = useStyles();
-    const theme = useTheme();
     const [isOpen, SetIsOpen] = useState(true);
-
-    const handleDrawerOpen = () => {
-        SetIsOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        SetIsOpen(false);
-    };
 
     return (
         <div className={classes.root}>
@@ -110,17 +98,7 @@ const MiniDrawer: React.FC = ({ children }) => {
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: isOpen,
                 })}>
-
-                <Toolbar>
-                    {!isOpen && <Menu
-                        color='white'
-                        isOpen={isOpen}
-                        menuClicked={() => SetIsOpen(!isOpen)}
-                        animationDuration={0.4}
-                        rotate={1} />}
-
-                    <Header />
-                </Toolbar>
+                <Header />
             </AppBar>
             <Drawer
                 variant="permanent"
@@ -133,21 +111,29 @@ const MiniDrawer: React.FC = ({ children }) => {
                         [classes.drawerOpen]: isOpen,
                         [classes.drawerClose]: !isOpen,
                     }),
-                }}
-            >
+                }}>
                 <div className={classes.toolbar}>
+
+                    {!isOpen &&
+                        <div className="user-icon-container">
+                            <FiUser
+                                size={30}
+                                onClick={() => SetIsOpen(true)}
+                                className='userIcon'
+                                color='white' />
+                        </div>
+                    }
+
                     <div className={!isOpen ? classes.hide : 'drawer-container'}>
-                        <section className="user-info-section">
-                            <div className='user-info-content'>
-                                <span>Willian Leman Rocha</span>
-                                <p> * On-line</p>
-                            </div>
+                        <UserHeader>
                             <GoChevronLeft className='arrowLeftIcon' onClick={() => SetIsOpen(!isOpen)} />
-                        </section>
+                        </UserHeader>
                     </div>
                 </div>
+
             </Drawer>
-            <main>
+
+            <main className={classes.content}>
                 <div className={classes.toolbar} />
                 {children}
             </main>
@@ -155,4 +141,4 @@ const MiniDrawer: React.FC = ({ children }) => {
     );
 }
 
-export default MiniDrawer;
+export default DrawerNav;

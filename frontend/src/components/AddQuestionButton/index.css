@@ -1,0 +1,57 @@
+.add-question-button {
+    border: 0;
+    border-radius: 8px;
+    background: #FF5617;
+    height: 50px;
+    width: 200px;
+    margin-right: 120px;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.add-question-button span {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.add-question-button .plusIcon {
+    color: white;
+}
+
+.add-question-button:hover {
+    background: #e46334;
+}
+
+.add-question-button-secundary {
+    border: 0;
+    border-radius: 8px;
+    background: #f0f0f0;
+    height: 50px;
+    width: 200px;
+    margin-right: 120px;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.add-question-button-secundary:hover {
+    background: #c2c1c1;
+}
+
+.add-question-button-secundary span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FF5617;
+}
+
+.add-question-button-secundary .plusIcon {
+    color: #FF5617;
+}

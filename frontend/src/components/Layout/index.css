@@ -1,5 +1,28 @@
 .layout-container {
-    height: 100vh;
     width: 100%;
+    height: 100vh;
     display: flex;
+    flex-direction: row;
+}
+
+.layout-container .question-card-container {
+    list-style: none;
+    margin-left: 24px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.layout-container .question-card-container strong {
+    font-size: 20px;
+    color: #000;
+    text-align: center;
+}
+
+.layout-container .question-card-container p {
+    font-size: 20px;
+    color: #848080;
+    text-align: center;
 }
