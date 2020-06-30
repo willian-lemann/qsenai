@@ -10,22 +10,21 @@ interface QuestionsCardProps {
 
 const QuestionsNumberCard: React.FC = () => {
 
-    const [questionsNumber, setQuestionsNumber] = useState(0); 
+    const [questionsNumber, setQuestionsNumber] = useState(0);
 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNTkzMzg1NDE2LCJleHAiOjE1OTM0NzE4MTZ9.nI4TqvDrj6dHPar2N_5dSdpTUBTfz_11XDIe1S0wPJc';
-
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNTkzNDc3MDY5LCJleHAiOjE1OTM1NjM0Njl9.15XDJn7DdDgwXb0KDbY2pVVreZ6JGeJzqcCukw4zRb0';
     const config = {
-        headers: { Authorization: 'Bearer ' + token }
+        headers: { Authorization: `Bearer ${ token }` }
     };
 
-    const user_id = 9;
+    const user_id = 2;
 
     api.get('/questions?user_id=' + user_id, config)
-        .then(response => setQuestionsNumber (Number(response.data.length)));
+        .then(response => setQuestionsNumber(Number(response.data.length)));
 
 
     return (
-        <div className="questions-card-container"> 
+        <div className="questions-card-container">
             <span>Perguntas</span>
             <p>{questionsNumber}</p>
         </div>

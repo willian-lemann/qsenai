@@ -19,21 +19,19 @@ interface QuestionResponse {
     owner: string,
 }
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNTkzMzcxMjk1LCJleHAiOjE1OTM0NTc2OTV9.jlBNTgc5cbu0CwsKraw5p3e2g-xMiA7CmZGfliWQ-rg';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNTkzNDc4Mzc5LCJleHAiOjE1OTM1NjQ3Nzl9.h_wTS-WQNjIuMIRUG8c4adPDMN5h3KfOk7FmZeFhmC4';
 
 const Layout: React.FC = () => {
     const [questions, SetQuestions] = useState<Question[]>([])
     useEffect(() => {
         const loadQuestions = async () => {
             const response = await api.get<QuestionResponse[]>('/questions', {
-                params: {
-                    user_id: 4
-                },
                 headers: {
-                    Authorization: 'Bearer ' + token
+                    Authorization: `Bearer ${token}`
                 }
             });
             SetQuestions(response.data);
+            console.log(response.data);
         }
         loadQuestions();
     }, []);

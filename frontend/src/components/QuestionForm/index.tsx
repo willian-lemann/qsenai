@@ -38,8 +38,9 @@ const QuestionForm: React.FC = () => {
     const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNTkzMDQ0NjkyLCJleHAiOjE1OTMxMzEwOTJ9.6GWc9DWrM12YObq6ZwgIZtKBRLzqNzBbe6DJti6XOno';
 
     const config = {
-      headers: { Authorization: 'Bearer ' + token }
+      headers: { Authorization: `Bearer ${token}` }
     };
+
 
     console.log('mandando:', data);
 
@@ -61,7 +62,7 @@ const QuestionForm: React.FC = () => {
         Perguntar
       </Button>
 
-      <Dialog fullWidth maxWidth="md"open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="dialog-pergunta">
+      <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="dialog-pergunta">
         <DialogTitle id="form-dialog-title">Pergunta</DialogTitle>
         <DialogContent>
           <DialogContentText>
