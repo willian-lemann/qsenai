@@ -9,8 +9,16 @@ interface NewQuestion {
 }
 
 class QuestionService {
-    async Index(userId: number) {
-        const questions = await questionRepository.Index(userId);
+
+    async Index() {
+        const questions = await questionRepository.Index();
+
+        return questions;
+    }
+
+
+    async AllByUserID(userId: number) {
+        const questions = await questionRepository.AllByUserID(userId);
 
         return questions;
     }
