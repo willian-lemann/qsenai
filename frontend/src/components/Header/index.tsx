@@ -1,20 +1,20 @@
 import React from 'react';
+import api from '../../service/api';
 
 import './index.css';
 
 import { FiUser } from 'react-icons/fi';
 
-import QuestionsCard from '../QuestionsNumberCard';
+import QuestionsNumberCard from '../QuestionsNumberCard';
 import AddQuestionButton from '../AddQuestionButton';
 
 const Header: React.FC = () => {
 
     return (
         <div className="header-container">
-            <QuestionsCard questionsNumber={2} />
+            <QuestionsNumberCard />
             <AddQuestionButton primary={true}> Lançar Pergunta </AddQuestionButton>
         </div>
-
     );
 }
 

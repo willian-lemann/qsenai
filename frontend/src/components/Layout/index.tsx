@@ -19,7 +19,7 @@ interface QuestionResponse {
     owner: string,
 }
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNTkzMzcxMjk1LCJleHAiOjE1OTM0NTc2OTV9.jlBNTgc5cbu0CwsKraw5p3e2g-xMiA7CmZGfliWQ-rg';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNTkzNTU4ODYxLCJleHAiOjE1OTM2NDUyNjF9.-YIZmvEPKhuwTqs6vxQhEpVMv86bXzbcoohrUdW1eLc';
 
 const Layout: React.FC = () => {
     const [questions, SetQuestions] = useState<Question[]>([])
@@ -40,9 +40,11 @@ const Layout: React.FC = () => {
 
     return (
         <div className='layout-container'>
-            {questions.map(question => (
-                <QuestionCard key={question.id} question={question} />
-            ))}
+            <ul>
+                {questions.map(question => (
+                    <QuestionCard key={question.id} question={question} />
+                ))}
+            </ul>
         </div>
     );
 }

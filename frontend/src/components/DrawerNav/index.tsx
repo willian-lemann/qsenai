@@ -79,9 +79,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
 
         content: {
-            marginTop: 45,
             background: '#f0f0f0',
             width: '100%',
+
         },
     }),
 );
@@ -95,9 +95,7 @@ const DrawerNav: React.FC = ({ children }) => {
             <CssBaseline />
             <AppBar
                 position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: isOpen,
-                })}>
+                className={clsx(classes.appBar, { [classes.appBarShift]: isOpen })}>
                 <Header />
             </AppBar>
             <Drawer
