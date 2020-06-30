@@ -38,11 +38,9 @@ const Layout: React.FC = () => {
 
     return (
         <div className='layout-container'>
-
             {questions.map(question => (
                 <QuestionCard key={question.id} question={question} />
             ))}
-
         </div>
     );
 }
