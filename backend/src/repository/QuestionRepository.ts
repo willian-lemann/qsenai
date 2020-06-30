@@ -7,7 +7,17 @@ interface NewQuestion {
 }
 
 class QuestionRepository {
-    async Index(userId: number) {
+    async Index() {
+        return await knex('question')
+            .select('question.*')
+            .select('user.name as owner')
+            .select('user.email')
+            .select('user.graduation')
+            .join('user', 'question.user_id', '=', 'user.id');
+            // .where('question.user_id', userId);
+    }
+
+    async AllByUserID(userId: number) {
         return await knex('question')
             .select('question.*')
             .select('user.name as owner')

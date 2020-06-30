@@ -15,6 +15,7 @@ routes.post('/register', authController.Register);
 routes.post('/authenticate', authController.Authenticate);
 
 routes.get('/questions', authMiddlwware, questionController.Index);
+routes.get('/questions/:user_id', authMiddlwware, questionController.AllByUserID);
 routes.post('/questions', authMiddlwware, questionController.Create);
 
 routes.get('/answers', authMiddlwware, answerController.Index);
