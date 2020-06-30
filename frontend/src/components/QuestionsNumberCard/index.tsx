@@ -1,29 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import api from '../../service/api';
+import React, { useState } from 'react';
 
 import './index.css';
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNTkzNTU4ODYxLCJleHAiOjE1OTM2NDUyNjF9.-YIZmvEPKhuwTqs6vxQhEpVMv86bXzbcoohrUdW1eLc';
+import api from '../../service/api';
+
+interface QuestionsCardProps {
+    questionsNumber: number
+}
 
 const QuestionsNumberCard: React.FC = () => {
-    const [questionsNumber, SetQuestionsNumber] = useState(0);
 
-    useEffect(() => {
-        const loadData = async () => {
-            const response = await api.get('/questions', {
-                params: {
-                    user_id: 4
-                },
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            });
+    const [questionsNumber, setQuestionsNumber] = useState(0);
 
-            SetQuestionsNumber(response.data.length);
-        }
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNTkzNDc3MDY5LCJleHAiOjE1OTM1NjM0Njl9.15XDJn7DdDgwXb0KDbY2pVVreZ6JGeJzqcCukw4zRb0';
+    const config = {
+        headers: { Authorization: `Bearer ${ token }` }
+    };
 
-        loadData();
-    }, []);
+    const user_id = 2;
+
+    api.get('/questions?user_id=' + user_id, config)
+        .then(response => setQuestionsNumber(Number(response.data.length)));
+
 
     return (
         <div className="questions-card-container">
