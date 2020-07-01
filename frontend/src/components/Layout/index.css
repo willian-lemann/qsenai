@@ -1,63 +1,30 @@
-.layout-container {}
+ .layout-container ul {
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     flex-wrap: wrap;
+ }
 
-.layout-container ul {
-    display: flex;
-    flex-direction: row;
-   align-items: center;
-    flex-wrap: wrap;
-}
+ .layout-container ul .question-card-container {
+     list-style: none;
+     margin-left: 35px;
+     margin-top: 25px;
+     margin-bottom: 10px;
+     cursor: pointer;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+ }
 
-.layout-container ul .question-card-container {
-    list-style: none;
-    margin-left: 35px;
-    margin-top: 25px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+ .layout-container ul .question-card-container strong {
+     font-size: 20px;
+     color: #000;
+     text-align: center;
+ }
 
-.layout-container ul .question-card-container strong {
-    font-size: 20px;
-    color: #000;
-    text-align: center;
-}
-
-.layout-container ul .question-card-container p {
-    font-size: 20px;
-    color: #848080;
-    text-align: center;
-}
-
-.layout-container .pagination {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 50px;
-    width: 100%;
-    margin-top: 60px;
-}
-
-.layout-container .pagination li {
-    margin-left: 10px;
-    cursor: pointer;
-    list-style: none;
-    height: 40px;
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.layout-container .linkClass {
-    color: #200e00;
-    text-decoration: none;
-}
-
-.layout-container .activeClass {
-    border-bottom-width: 1px thin;
-    border-bottom-style: solid;
-    border-bottom-color: #200e00;
-}
+ .layout-container ul .question-card-container p {
+     font-size: 20px;
+     color: #848080;
+     text-align: center;
+ }

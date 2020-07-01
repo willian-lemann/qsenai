@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../service/api';
 
 import './index.css';
-
-import Pagination from 'react-js-pagination';
-
+  
 import QuestionCard from '../../components/QuestionCard';
 
 interface Question {
