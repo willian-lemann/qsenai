@@ -7,24 +7,37 @@ interface NewQuestion {
 }
 
 class QuestionRepository {
-    async Index() {
-        return await knex('question')
+    async Index(page: number) {
+        let currentPage = page - 1;
+        const [count] = await knex('question').count();
+
+        const questions = await knex('question')
             .select('question.*')
             .select('user.name as owner')
             .select('user.email')
             .select('user.graduation')
-            .join('user', 'question.user_id', '=', 'user.id');
-            // .where('question.user_id', userId);
+            .limit(5)
+            .offset(currentPage * 5)
+            .join('user', 'question.user_id', '=', 'user.id')
+
+        return [questions, count];
     }
 
-    async AllByUserID(userId: number) {
-        return await knex('question')
+    async AllByUserID(userId: number, page: number) {
+        let currentPage = page - 1;
+        const [count] = await knex('question').count();
+
+        const questions = await knex('question')
             .select('question.*')
             .select('user.name as owner')
             .select('user.email')
             .select('user.graduation')
+            .limit(5)
+            .offset(currentPage * 5)
             .join('user', 'question.user_id', '=', 'user.id')
             .where('question.user_id', userId);
+
+        return [questions, count];
     }
 
     async Create(newQuestion: NewQuestion) {

@@ -6,25 +6,32 @@ const questionService = new QuestionService();
 
 class QuestionController {
     async Index(request: Request, response: Response) {
-        const users = await questionService.Index();
+        const { page = 1 } = request.query;
 
-        return response.json(users);
+        const [questions, count] = await questionService.Index(Number(page));
+
+        response.header('x-total-count', count['count(*)']);
+
+        return response.json(questions);
     }
 
     async AllByUserID(request: Request, response: Response) {
+        const { page = 1 } = request.query;
         const { user_id } = request.params;
-        console.log(request.params);
 
-        if (user_id == null || !Number(user_id)) 
+
+        if (user_id == null || !Number(user_id))
             return response.status(400).send({ error: 'user id need to be a number' });
-        
 
-        const returnQuestions = await questionService.AllByUserID(Number(user_id));
 
-        if (returnQuestions.length == 0)
+        const [questions, count] = await questionService.AllByUserID(Number(user_id), Number(page));
+
+        if (questions.length == 0)
             return response.status(404).send({ error: 'user haven\'t made questions yet' });
-        
-        return response.json(returnQuestions);
+
+        response.header('x-total-count', count['count(*)']);
+
+        return response.json(questions);
     }
 
     async Create(request: Request, response: Response) {

@@ -10,15 +10,15 @@ interface NewQuestion {
 
 class QuestionService {
 
-    async Index() {
-        const questions = await questionRepository.Index();
+    async Index(page: number) {
+        const questions = await questionRepository.Index(page);
 
         return questions;
     }
 
 
-    async AllByUserID(userId: number) {
-        const questions = await questionRepository.AllByUserID(userId);
+    async AllByUserID(userId: number, page: number) {
+        const questions = await questionRepository.AllByUserID(userId, page);
 
         return questions;
     }
