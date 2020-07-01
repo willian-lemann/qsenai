@@ -3,23 +3,26 @@ import api from '../../service/api';
 
 import './index.css';
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNTkzNTU4ODYxLCJleHAiOjE1OTM2NDUyNjF9.-YIZmvEPKhuwTqs6vxQhEpVMv86bXzbcoohrUdW1eLc';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNTkzNTczNzQ5LCJleHAiOjE1OTM2NjAxNDl9.WpnSY0VHKh4dAIzOx7KQTfy7qoRE0SIoLHlfTl-2LVE';
 
 const QuestionsNumberCard: React.FC = () => {
     const [questionsNumber, SetQuestionsNumber] = useState(0);
+
 
     useEffect(() => {
         const loadData = async () => {
             const response = await api.get('/questions', {
                 params: {
-                    user_id: 4
+                    user_id: 4,
+
                 },
                 headers: {
                     Authorization: 'Bearer ' + token
                 }
             });
+            const countedQuestions = parseInt(response.headers['x-total-count']);
 
-            SetQuestionsNumber(response.data.length);
+            SetQuestionsNumber(countedQuestions);
         }
 
         loadData();
