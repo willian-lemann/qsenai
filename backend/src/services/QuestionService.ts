@@ -16,7 +16,6 @@ class QuestionService {
         return questions;
     }
 
-
     async AllByUserID(userId: number) {
         const questions = await questionRepository.AllByUserID(userId);
 
@@ -27,6 +26,12 @@ class QuestionService {
         const question = await questionRepository.Create(newQuestion);
 
         return question;
+    }
+
+    async QuestionByID(questionID: number) {
+        const questions = await questionRepository.QuestionByID(questionID);
+
+        return questions;
     }
 };
 
