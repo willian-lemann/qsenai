@@ -1,8 +1,8 @@
 import React from 'react';
 
 import './index.css';
-import logo from '../../../assets/logo-qsenai.png';
 
+import logo from '../../../assets/qsenai.svg';
 
 const Logo: React.FC = () => {
   return (
