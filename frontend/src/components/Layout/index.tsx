@@ -41,7 +41,6 @@ const Layout: React.FC = () => {
 
             });
             SetQuestions(response.data);
-
         }
         loadQuestions();
 

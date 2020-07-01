@@ -1,9 +1,6 @@
 import React from 'react';
-import api from '../../service/api';
 
 import './index.css';
-
-import { FiUser } from 'react-icons/fi';
 
 import QuestionsNumberCard from '../QuestionsNumberCard';
 import AddQuestionButton from '../AddQuestionButton';
