@@ -7,8 +7,7 @@ interface NewQuestion {
 }
 
 class QuestionRepository {
-    async Index(page: number) {
-        let currentPage = page - 1;
+    async Index() {
         const [count] = await knex('question').count();
 
         const questions = await knex('question')
@@ -16,15 +15,12 @@ class QuestionRepository {
             .select('user.name as owner')
             .select('user.email')
             .select('user.graduation')
-            .limit(5)
-            .offset(currentPage * 5)
             .join('user', 'question.user_id', '=', 'user.id')
 
         return [questions, count];
     }
 
-    async AllByUserID(userId: number, page: number) {
-        let currentPage = page - 1;
+    async AllByUserID(userId: number) {
         const [count] = await knex('question').count();
 
         const questions = await knex('question')
@@ -32,8 +28,6 @@ class QuestionRepository {
             .select('user.name as owner')
             .select('user.email')
             .select('user.graduation')
-            .limit(5)
-            .offset(currentPage * 5)
             .join('user', 'question.user_id', '=', 'user.id')
             .where('question.user_id', userId);
 

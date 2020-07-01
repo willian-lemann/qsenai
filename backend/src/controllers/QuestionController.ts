@@ -29,7 +29,7 @@ class QuestionController {
         if (questions.length == 0)
             return response.status(404).send({ error: 'user haven\'t made questions yet' });
 
-        response.header('x-total-count', count['count(*)']);
+        response.header('X-total-count', count['count(*)']);
 
         return response.json(questions);
     }
