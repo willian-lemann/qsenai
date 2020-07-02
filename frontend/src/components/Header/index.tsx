@@ -5,12 +5,22 @@ import './index.css';
 import QuestionsNumberCard from '../QuestionsNumberCard';
 import AddQuestionButton from '../AddQuestionButton';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+    detailHeader?: boolean,
+    value?: string
+}
+
+const Header: React.FC<HeaderProps> = ({ detailHeader }) => {
+
 
     return (
         <div className="header-container">
-            <QuestionsNumberCard />
-            <AddQuestionButton primary={true}> Lançar Pergunta </AddQuestionButton>
+            {detailHeader ?
+                <div>teste</div> :
+                [
+                    <QuestionsNumberCard />,
+                    <AddQuestionButton primary> Lançar Pergunta </AddQuestionButton>
+                ]}
         </div>
     );
 }

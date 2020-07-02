@@ -19,22 +19,30 @@ interface QuestionResponse {
     owner: string,
 }
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNTkzNDc4Mzc5LCJleHAiOjE1OTM1NjQ3Nzl9.h_wTS-WQNjIuMIRUG8c4adPDMN5h3KfOk7FmZeFhmC4';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNTkzNTczNzQ5LCJleHAiOjE1OTM2NjAxNDl9.WpnSY0VHKh4dAIzOx7KQTfy7qoRE0SIoLHlfTl-2LVE';
 
 const Layout: React.FC = () => {
-    const [questions, SetQuestions] = useState<Question[]>([])
+    const [questions, SetQuestions] = useState<Question[]>([]);
+    const [page, setPage] = useState(1);
+
+
     useEffect(() => {
         const loadQuestions = async () => {
             const response = await api.get<QuestionResponse[]>('/questions', {
+                params: {
+                    user_id: 4,
+                    page
+                },
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: 'Bearer ' + token,
                 }
+
             });
             SetQuestions(response.data);
-            console.log(response.data);
         }
         loadQuestions();
-    }, []);
+
+    }, [page]);
 
     return (
         <div className='layout-container'>

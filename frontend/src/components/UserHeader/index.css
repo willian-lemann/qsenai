@@ -18,6 +18,22 @@
     align-items: center;
 }
 
+.drawer-container .user-info-section .user-info-content span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.drawer-container .user-info-section .user-info-content p {
+    font-weight: bold;
+}
+
+.drawer-container .user-info-section .user-info-content .circleIcon {
+    background-color: green;
+    border-radius: 50%;
+    height: 18px;
+    width: 18px;
+}
+
 .drawer-container .user-info-section .arrowLeftIcon {
     cursor: pointer;
     color: white;

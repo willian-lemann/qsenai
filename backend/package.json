@@ -6,7 +6,8 @@
   "scripts": {
     "start": "yarn ts-node src/server.ts",
     "dev": "yarn ts-node-dev --transpileOnly --ignore-watch node_modules src/server.ts",
-    "migrate": "knex  --knexfile knexfile.ts migrate:latest"
+    "migrate": "knex  --knexfile knexfile.ts migrate:latest", 
+    "rollback-all": "knex  --knexfile  knexfile.ts migrate:rollback --all"
   },
   "dependencies": {
     "@types/bcrypt": "^3.0.0",

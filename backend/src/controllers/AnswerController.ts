@@ -13,8 +13,13 @@ class AnswerController {
     }
 
     async Create(request: Request, response: Response) {
-        const data = request.body;
+        const { content, question_id } = request.body;
 
+        const data = {
+            content,
+            question_id
+        }
+        
         const answer = await answerService.Create(data);
 
         return response.json(answer);

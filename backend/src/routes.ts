@@ -15,10 +15,10 @@ routes.post('/register', authController.Register);
 routes.post('/authenticate', authController.Authenticate);
 
 routes.get('/questions', authMiddlwware, questionController.Index);
-routes.get('/questions/:id', authMiddlwware, questionController.QuestionByID);
+routes.get('/questions/:user_id/all', authMiddlwware, questionController.AllByUserID);
+routes.get('/questions/:question_id', authMiddlwware, questionController.Show);
 routes.post('/questions', authMiddlwware, questionController.Create);
 
-routes.get('/answers', authMiddlwware, answerController.Index);
 routes.post('/answers', authMiddlwware, answerController.Create);
 
 export default routes;
