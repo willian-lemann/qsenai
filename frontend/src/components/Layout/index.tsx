@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../../service/api';
 
 import './index.css';
-  
+
 import QuestionCard from '../../components/QuestionCard';
 
 interface Question {
@@ -43,10 +43,6 @@ const Layout: React.FC = () => {
         loadQuestions();
 
     }, [page]);
-
-    const HandlePageChange = (pageNumber: number) => {
-        setPage(pageNumber);
-    }
 
     return (
         <div className='layout-container'>

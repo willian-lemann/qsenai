@@ -33,7 +33,7 @@ const QuestionsNumberCard: React.FC = () => {
             <span>Perguntas</span>
             <p>{questionsNumber}</p>
         </div>
-    );
+    ); 
 }
 
 export default QuestionsNumberCard;

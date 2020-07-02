@@ -10,22 +10,23 @@ interface NewQuestion {
 
 class QuestionService {
 
-    async Index(page: number) {
-        const questions = await questionRepository.Index(page);
-
+    async Index() {
+        const questions = await questionRepository.Index();
+        return questions;
+    }
+ 
+    async AllByUserID(userId: number) {
+        const questions = await questionRepository.AllByUserID(userId);
         return questions;
     }
 
-
-    async AllByUserID(userId: number, page: number) {
-        const questions = await questionRepository.AllByUserID(userId, page);
-
-        return questions;
+    async Show(questionId: number) {
+        const question = await questionRepository.Show(questionId);
+        return question;
     }
-
+ 
     async Create(newQuestion: NewQuestion) {
         const question = await questionRepository.Create(newQuestion);
-
         return question;
     }
 };

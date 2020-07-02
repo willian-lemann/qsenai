@@ -26,15 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
         },
 
-        appBar: {
-            zIndex: theme.zIndex.appBar + 1,
-            transition: theme.transitions.create(['width', 'margin'], {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.leavingScreen,
-            }),
-            height: 80,
-        },
-
         appBarShift: {
             width: `calc(100% - ${drawerWidth}px)`,
         },
@@ -79,9 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
 
         content: {
-            background: '#f0f0f0',
             width: '100%',
-
         },
     }),
 );
@@ -92,12 +81,6 @@ const DrawerNav: React.FC = ({ children }) => {
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, { [classes.appBarShift]: isOpen })}>
-                <Header />
-            </AppBar>
             <Drawer
                 variant="permanent"
                 className={clsx(classes.drawer, {
@@ -132,7 +115,6 @@ const DrawerNav: React.FC = ({ children }) => {
             </Drawer>
 
             <main className={classes.content}>
-                <div className={classes.toolbar} />
                 {children}
             </main>
         </div>

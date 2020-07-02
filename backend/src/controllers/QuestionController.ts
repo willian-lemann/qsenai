@@ -6,17 +6,21 @@ const questionService = new QuestionService();
 
 class QuestionController {
     async Index(request: Request, response: Response) {
-        const { page = 1 } = request.query;
-
-        const [questions, count] = await questionService.Index(Number(page));
+        const [questions, count] = await questionService.Index();
 
         response.header('x-total-count', count['count(*)']);
+
+        return response.json(questions);
+    } 
+
+    async Show(request: Request, response: Response) {
+        const { question_id } = request.params;
+        const questions = await questionService.Show(Number(question_id));
 
         return response.json(questions);
     }
 
     async AllByUserID(request: Request, response: Response) {
-        const { page = 1 } = request.query;
         const { user_id } = request.params;
 
 
@@ -24,7 +28,7 @@ class QuestionController {
             return response.status(400).send({ error: 'user id need to be a number' });
 
 
-        const [questions, count] = await questionService.AllByUserID(Number(user_id), Number(page));
+        const [questions, count] = await questionService.AllByUserID(Number(user_id));
 
         if (questions.length == 0)
             return response.status(404).send({ error: 'user haven\'t made questions yet' });
@@ -36,7 +40,6 @@ class QuestionController {
 
     async Create(request: Request, response: Response) {
         const data = request.body;
-        console.log(data);
 
         const user = await questionService.Create(data);
 
