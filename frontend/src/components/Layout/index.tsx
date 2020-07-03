@@ -23,7 +23,7 @@ interface QuestionResponse {
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTkzNzQyNTU2LCJleHAiOjE1OTM4Mjg5NTZ9.Sbzr-EStIkmW5YpZ9ChTXlkmDpQllaylw8O2FVtLk3Y';
 
 const Layout: React.FC = () => {
-    const [questions, SetQuestions] = useState<Question[]>([]); 
+    const [questions, SetQuestions] = useState<Question[]>([]);
 
     const loadQuestions = async () => {
         const response = await api.get<QuestionResponse[]>('/questions', {
@@ -36,20 +36,20 @@ const Layout: React.FC = () => {
 
         });
         SetQuestions(response.data);
-         
+
     }
 
     useEffect(() => {
         loadQuestions();
     }, []);
- 
 
-    let filteredQuestions = orderBy(questions, [question => question.subject.toLowerCase()], ['asc']);
+
+    let filteredQuestions = orderBy(questions, [(question: Question) => question.content.toLowerCase()], ['asc']);
 
     return (
         <div className='layout-container'>
             <ul>
-                {filteredQuestions.map(question => (
+                {filteredQuestions.map((question: Question) => (
                     <QuestionCard key={question.id} question={question} />
                 ))}
             </ul>
