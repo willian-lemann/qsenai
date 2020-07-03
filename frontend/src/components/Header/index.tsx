@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ detailHeader }) => {
                 <div>teste</div> :
                 [
                     <QuestionsNumberCard />,
-                    <AddQuestionButton primary> Lançar Pergunta </AddQuestionButton>
+                    <AddQuestionButton value='Lançar Pergunta' />
                 ]}
         </div>
     );

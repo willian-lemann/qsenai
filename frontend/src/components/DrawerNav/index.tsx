@@ -17,6 +17,7 @@ import './index.css'
 import Header from '../Header';
 import UserHeader from '../UserHeader';
 import { FiUser } from 'react-icons/fi';
+import { ToastContainer } from 'react-toastify';
 
 const drawerWidth = 270;
 

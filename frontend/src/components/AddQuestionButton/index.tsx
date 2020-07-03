@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
+import api from '../../service/api';
 
 import './index.css';
 
@@ -11,86 +12,88 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { borders } from '@material-ui/system';
-
-
-import api from '../../service/api';
-
-interface AddQuestionButton {
-    primary: boolean
+interface Question {
+    subject: string,
+    content: string
 }
 
-const AddQuestionButton: React.FC<AddQuestionButton> = ({ primary, children }) => {
+interface AddQuestionButtonProps {
+    value: string
+}
 
-    const [open, setOpen] = useState(false);
-    const [questionData, SetFormData] = useState({
+const AddQuestionButton: React.FC<AddQuestionButtonProps> = ({ value }) => {
+    const [open, SetOpen] = useState(false);
+    const [questionFormData, SetQuestionFormData] = useState<Question>({
         subject: '',
         content: ''
     });
 
-    const handleClickOpen = () => {
-        setOpen(true);
+    const Notify = () => toast('Questão adicionada com sucesso!', {
+        type: 'success',
+        className: 'toastcontainer'
+    });
+
+    const HandleOpen = () => {
+        SetOpen(true);
     };
 
-    const handleClose = () => {
-        setOpen(false);
+    const HandleClose = () => {
+        SetOpen(false);
     };
 
-    const handleSendQuestion = () => {
-        const { subject, content } = questionData;
+    const HandleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        SetQuestionFormData({ ...questionFormData, [name]: value });
+    }
+
+    const HandleSubmitQuestion = async () => {
+        const { subject, content } = questionFormData;
 
         const data = {
             subject,
             content
-        }
+        };
 
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNTkzMDQ0NjkyLCJleHAiOjE1OTMxMzEwOTJ9.6GWc9DWrM12YObq6ZwgIZtKBRLzqNzBbe6DJti6XOno';
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTkzNzQyNTU2LCJleHAiOjE1OTM4Mjg5NTZ9.Sbzr-EStIkmW5YpZ9ChTXlkmDpQllaylw8O2FVtLk3Y';
 
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
+        const question = await api.post('/questions', data, config);
+        console.log(question)
 
+        question !== null && Notify();
 
-        console.log('mandando:', data);
-
-        api.post('/questions', data, config)
-            .then(response => console.log('retorno: ', response.data));
-
-        alert("Foi mensagem!");
-        handleClose();
-    }
-
-    const HandleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        SetFormData({ ...questionData, [name]: value });
-    }
+        HandleClose();
+    };
 
     return (
         <div>
-            <button onClick={handleClickOpen} className={primary ? 'add-question-button' : 'add-question-button-secundary'}>
-                <span>{children}</span>
+            <button onClick={HandleOpen} className={'add-question-button'}>
+                <span>{value}</span>
                 <FiPlus size={20} className='plusIcon' />
             </button>
 
-            <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="dialog-pergunta">
+            <Dialog fullWidth maxWidth="md" open={open} onClose={HandleClose} aria-labelledby="form-dialog-title" className="dialog-pergunta">
                 <DialogTitle id="form-dialog-title">Pergunta</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         Qual sua dúvida?
                     </DialogContentText>
+
                     <TextField
                         autoFocus
                         margin="dense"
                         name="subject"
-                        // label="Pergunta"
                         type="text"
                         fullWidth
                         placeholder="Assunto"
                         onChange={HandleInputChange}
                     />
-                    <br></br>
-                    <br></br>
+
                     <TextField
                         id="outlined-multiline-static"
                         label="Pergunta"
@@ -101,15 +104,13 @@ const AddQuestionButton: React.FC<AddQuestionButton> = ({ primary, children }) =
                         fullWidth
                         onChange={HandleInputChange}
                     />
+
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="secondary">
-                        Cancelar
-                </Button>
-                    <Button onClick={handleSendQuestion} variant="contained" color="primary">
-                        <span>Enviar </span><FiSend size={20} />                         
-
-                </Button>
+                    <Button onClick={HandleClose} color="secondary"> Cancelar </Button>
+                    <Button onClick={HandleSubmitQuestion} variant="contained" color="primary">
+                        <span>Enviar</span> <FiSend size={20} />
+                    </Button>
                 </DialogActions>
             </Dialog>
         </div >

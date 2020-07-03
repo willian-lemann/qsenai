@@ -5,8 +5,6 @@ import './index.css';
 import Layout from '../../components/Layout';
 import Header from '../../components/Header';
 
-import QuestionForm from '../../components/QuestionForm';
-
 const Dashboard: React.FC = () => {
 
     return (

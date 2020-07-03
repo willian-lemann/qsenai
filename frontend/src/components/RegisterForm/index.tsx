@@ -43,8 +43,6 @@ const RegisterForm: React.FC = () => {
             graduation           
         }
 
-        console.log('foi: ', data);
-
         api.post('/register', data)
             .then(response => console.log('retorno: ' , response.data));       
     }
