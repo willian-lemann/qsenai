@@ -14,7 +14,7 @@ class QuestionRepository {
             .select('question.*')
             .select('user.name as owner')
             .select('user.email')
-            .select('user.graduation')
+            .select('user.graduation') 
             .join('user', 'question.user_id', '=', 'user.id')
 
         return [questions, count];
