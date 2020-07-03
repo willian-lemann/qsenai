@@ -12,9 +12,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { borders } from '@material-ui/system';
-
-
 import api from '../../service/api';
 
 interface AddQuestionButton {
@@ -22,6 +19,12 @@ interface AddQuestionButton {
 }
 
 const AddQuestionButton: React.FC<AddQuestionButton> = ({ primary, children }) => {
+
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTkzNzM2NDIwLCJleHAiOjE1OTM4MjI4MjB9.p3TqgmuAEGpgfhlc_cm8PplqTZp8kxjUz4X3PqL5XNs';
+
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
 
     const [open, setOpen] = useState(false);
     const [questionData, SetFormData] = useState({
@@ -44,13 +47,6 @@ const AddQuestionButton: React.FC<AddQuestionButton> = ({ primary, children }) =
             subject,
             content
         }
-
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNTkzMDQ0NjkyLCJleHAiOjE1OTMxMzEwOTJ9.6GWc9DWrM12YObq6ZwgIZtKBRLzqNzBbe6DJti6XOno';
-
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        };
-
 
         console.log('mandando:', data);
 
@@ -83,7 +79,6 @@ const AddQuestionButton: React.FC<AddQuestionButton> = ({ primary, children }) =
                         autoFocus
                         margin="dense"
                         name="subject"
-                        // label="Pergunta"
                         type="text"
                         fullWidth
                         placeholder="Assunto"

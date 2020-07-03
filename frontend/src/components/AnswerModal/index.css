@@ -1,0 +1,12 @@
+.questionModal-container{
+    background-color: brown;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.questionModal-container .button-add {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
