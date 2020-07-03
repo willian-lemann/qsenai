@@ -29,6 +29,12 @@ class QuestionService {
         const question = await questionRepository.Create(newQuestion);
         return question;
     }
+
+    async QuestionByID(questionID: number) {
+        const questions = await questionRepository.QuestionByID(questionID);
+
+        return questions;
+    }
 };
 
 export default QuestionService;

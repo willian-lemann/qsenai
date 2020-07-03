@@ -15,9 +15,19 @@ class QuestionController {
 
     async Show(request: Request, response: Response) {
         const { question_id } = request.params;
-        const questions = await questionService.Show(Number(question_id));
 
-        return response.json(questions);
+        console.log(`search question id ${question_id}`);
+
+        if (question_id == null || !Number(question_id))
+            return response.status(400).send({ error: 'question id need to be a number' });
+
+        const data = await questionService.Show(Number(question_id));
+        const { question } = data;
+
+        if (!question)
+            return response.status(404).send({ error: 'question doens\'t exist' });
+
+        return response.json(data);
     }
 
     async AllByUserID(request: Request, response: Response) {
@@ -45,6 +55,7 @@ class QuestionController {
 
         return response.json(user);
     }
+
 };
 
 export default QuestionController;

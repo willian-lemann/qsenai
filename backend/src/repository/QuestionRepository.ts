@@ -57,6 +57,14 @@ class QuestionRepository {
     async Create(newQuestion: NewQuestion) {
         return await knex('question').insert(newQuestion);
     }
+
+    async QuestionByID(questionId: number) {
+        return await knex('question')
+            .select('question.*')
+            .where('question.id', questionId);
+    }
+
+    
 }
 
 export default QuestionRepository;
