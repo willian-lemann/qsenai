@@ -11,15 +11,13 @@ class QuestionController {
         response.header('x-total-count', count['count(*)']);
 
         return response.json(questions);
-    } 
+    }
 
     async Show(request: Request, response: Response) {
         const { question_id } = request.params;
 
-        console.log(`search question id ${question_id}`);
-
         if (question_id == null || !Number(question_id))
-            return response.status(400).send({ error: 'question id need to be a number' });
+            return response.status(400).send({ error: 'question_id need to be a number' });
 
         const data = await questionService.Show(Number(question_id));
         const { question } = data;

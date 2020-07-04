@@ -1,0 +1,17 @@
+.button {
+    background: #FF5617;
+    border: 0;
+    outline: none;
+    height: 40px;
+    width: 120px;
+    border-radius: 20px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: filter 0.3s;
+}
+
+.button:hover {
+    filter: brightness(88%);
+}

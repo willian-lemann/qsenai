@@ -5,49 +5,78 @@ import api from '../../service/api';
 import './index.css';
 
 import Header from '../../components/Header';
+import Button from '../../components/shared/Button';
+import AnswerCard from '../../components/AnswerCard';
 
 interface Answer {
     content: string
+    owner: string
 }
 
 interface Question {
-    subject: string,
-    content: string,
-    owner: string,
+    question: {
+        subject: string,
+        content: string,
+        owner: string,
+    }
     answers: Answer[]
 }
 
 interface QuestionResponse {
-    subject: string,
-    content: string,
-    owner: string,
+    question: {
+        subject: string,
+        content: string,
+        owner: string,
+    }
     answers: Answer[]
 }
 const Detail: React.FC = () => {
     const { id } = useParams();
-
     const [question, SetQuestion] = useState<Question>();
+    const subject = question?.question.subject;
+    const content = question?.question.content;
+    const owner = question?.question.owner;
+    const answers = question?.answers;
+    const numberOfAnswers = answers?.length;
+
+    const loadQuestion = async () => {
+        const response = await api.get<QuestionResponse>(`/questions/${id}`, {
+            headers: {
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTkzODMzNTc2LCJleHAiOjE1OTM5MTk5NzZ9.kd_BSPPAmfOdQsIAr9TrOq2PzdqVpmAmLMUBIeWThng'
+            }
+        });
+
+        console.log(response.data)
+        SetQuestion(response.data);
+    }
 
     useEffect(() => {
-        const loadQuestion = async () => {
-            const response = await api.get(`/questions/${id}`, {
-                headers: {
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNTkzNTY3MjYzLCJleHAiOjE1OTM2NTM2NjN9.pov8vojETkZOKRCxNuxq3MKUBZH0NWaezdSiQA8w0_8'
-                }
-            });
-
-            SetQuestion(response.data);
-            console.log(response.data)
-        }
-
         loadQuestion();
     }, []);
 
     return (
         <div className="detail-container">
-            <Header detailHeader />
+            <Header detailHeader value={owner} />
 
-
+            <section className="question-section">
+                <strong>{subject}</strong>
+                <p>{content}</p>
+                <Button value='Responder' />
+            </section>
+            <ul className="answer-section" >
+                <div className="answer-divisor">
+                    <span>{numberOfAnswers} Respostas</span>
+                    <hr className='divisor' />
+                </div>
+                {numberOfAnswers === 0 && (
+                    <p style={{ height: '100vh' }}>
+                        Não ha nenhuma resposta
+                    </p>
+                )}
+                {answers?.map(answer => (
+                    <AnswerCard answer={answer} />
+                ))}
+            </ul>
         </div>
     );
 }

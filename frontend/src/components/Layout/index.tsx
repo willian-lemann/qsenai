@@ -20,7 +20,7 @@ interface QuestionResponse {
     owner: string,
 }
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTkzNzQyNTU2LCJleHAiOjE1OTM4Mjg5NTZ9.Sbzr-EStIkmW5YpZ9ChTXlkmDpQllaylw8O2FVtLk3Y';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTkzODI4MTU1LCJleHAiOjE1OTM5MTQ1NTV9.Zkd4-YW5I7blKgoEjNUckk1LkQk3u-prF61-mSaGs2s';
 
 const Layout: React.FC = () => {
     const [questions, SetQuestions] = useState<Question[]>([]);

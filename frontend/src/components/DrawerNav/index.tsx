@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
             ...theme.mixins.toolbar,
         },
 
-        content: {
+        content: { 
             width: '100%',
         },
     }),
