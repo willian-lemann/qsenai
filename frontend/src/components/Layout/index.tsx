@@ -20,7 +20,6 @@ interface QuestionResponse {
     owner: string,
 }
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTkzODI4MTU1LCJleHAiOjE1OTM5MTQ1NTV9.Zkd4-YW5I7blKgoEjNUckk1LkQk3u-prF61-mSaGs2s';
 
 const Layout: React.FC = () => {
     const [questions, SetQuestions] = useState<Question[]>([]);
@@ -30,10 +29,6 @@ const Layout: React.FC = () => {
             params: {
                 user_id: 4
             },
-            headers: {
-                Authorization: 'Bearer ' + token,
-            }
-
         });
         SetQuestions(response.data);
 

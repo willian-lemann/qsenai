@@ -6,11 +6,11 @@ const LocalStorageService = () => {
     }
 
     const GetToken = () => {
-        localStorage.getItem('access_token');
+        return localStorage.getItem('access_token');
     }
 
     const GetRefreshedToken = () => {
-        localStorage.getItem('refreshed_token');
+        return localStorage.getItem('refreshed_token');
     }
 
     const ClearToken = () => {

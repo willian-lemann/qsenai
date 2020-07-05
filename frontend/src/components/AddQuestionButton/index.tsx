@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, useContext } from 'react';
 import api from '../../service/api';
 
 import './index.css';
@@ -33,7 +33,8 @@ const AddQuestionButton: React.FC<AddQuestionButtonProps> = ({ value }) => {
 
     const Notify = () => toast('Questão adicionada com sucesso!', {
         type: 'success',
-        className: 'toastcontainer'
+        className: 'toastcontainer',
+
     });
 
     const HandleOpen = () => {
@@ -57,13 +58,7 @@ const AddQuestionButton: React.FC<AddQuestionButtonProps> = ({ value }) => {
             content
         };
 
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTkzNzQyNTU2LCJleHAiOjE1OTM4Mjg5NTZ9.Sbzr-EStIkmW5YpZ9ChTXlkmDpQllaylw8O2FVtLk3Y';
-
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        };
-        const question = await api.post('/questions', data, config);
-        console.log(question)
+        const question = await api.post('/questions', data);
 
         question !== null && Notify();
 
