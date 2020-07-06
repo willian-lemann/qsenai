@@ -40,13 +40,8 @@ const Detail: React.FC = () => {
     const numberOfAnswers = answers?.length;
 
     const loadQuestion = async () => {
-        const response = await api.get<QuestionResponse>(`/questions/${id}`, {
-            headers: {
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTkzODMzNTc2LCJleHAiOjE1OTM5MTk5NzZ9.kd_BSPPAmfOdQsIAr9TrOq2PzdqVpmAmLMUBIeWThng'
-            }
-        });
+        const response = await api.get<QuestionResponse>(`/questions/${id}`);
 
-        console.log(response.data)
         SetQuestion(response.data);
     }
 
@@ -68,14 +63,14 @@ const Detail: React.FC = () => {
                     <span>{numberOfAnswers} Respostas</span>
                     <hr className='divisor' />
                 </div>
-                {numberOfAnswers === 0 && (
+
+                {numberOfAnswers === 0 ? (
                     <p style={{ height: '100vh' }}>
                         Não ha nenhuma resposta
                     </p>
-                )}
-                {answers?.map(answer => (
-                    <AnswerCard answer={answer} />
-                ))}
+                ) :
+                    answers?.map(answer => <AnswerCard answer={answer} />)}
+
             </ul>
         </div>
     );
