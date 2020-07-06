@@ -1,12 +1,59 @@
-.questionModal-container{
-    background-color: brown;
+.add-answer-button {
+    border: 0;
+    border-radius: 8px;
+    background: #FF5617;
+    height: 50px;
+    width: 200px;
+    margin-right: 120px;
+    cursor: pointer;
+    outline: none;
     display: flex;
-    flex-direction: row;
     justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
 }
 
-.questionModal-container .button-add {
+.add-answer-button span {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.add-answer-button .plusIcon {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.add-answer-button:hover {
+    background: #e46334;
+}
+
+.add-answer-button-secundary {
+    border: 0;
+    border-radius: 8px;
+    background: #f0f0f0;
+    height: 50px;
+    width: 200px;
+    margin-right: 120px;
+    cursor: pointer;
+    outline: none;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.add-answer-button-secundary:hover {
+    background: #c2c1c1;
+}
+
+.add-answer-button-secundary span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FF5617;
+}
+
+.add-answer-button-secundary .plusIcon {
+    color: #FF5617;
 }

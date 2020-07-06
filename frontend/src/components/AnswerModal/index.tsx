@@ -20,27 +20,24 @@ import api from '../../service/api';
 
 interface QuestionProps {
   question: {
-    content: string,
-    subject: string,
-    id: number
+    id?: number,
+    subject?: string,
+    content?: string,
   }
 }
 
 const AnswerModal: React.FC<QuestionProps> = ({ question }) => {
 
-  const notify = () => toast("Foi!");
+  const content = question?.content;
+  const id = question?.id;
+  const subject = question?.subject;
 
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTkzNzM2NDIwLCJleHAiOjE1OTM4MjI4MjB9.p3TqgmuAEGpgfhlc_cm8PplqTZp8kxjUz4X3PqL5XNs';
-
-  const config = {
-    headers: { Authorization: `Bearer ${token}` }
-  };
+  const notify = () => toast("Resposta enviada!");
 
   const [open, setOpen] = useState(false);
 
   const [answerData, SetAnswerFormData] = useState({
-    content: '',
-    question_id: question.id
+    content: ''
   });
 
   const handleClickOpen = () => {
@@ -56,10 +53,11 @@ const AnswerModal: React.FC<QuestionProps> = ({ question }) => {
     SetAnswerFormData({ ...answerData, [name]: value });
   }
 
-
   const handleSendAnswer = async () => {
-    const { content, question_id } = answerData;
+    const { content } = answerData;
 
+    const question_id = question.id;
+    
     const data = {
       question_id,
       content
@@ -67,7 +65,7 @@ const AnswerModal: React.FC<QuestionProps> = ({ question }) => {
 
     console.log('mandando:', data);
 
-    const answer = await api.post('/answers', data, config);
+    const answer = await api.post('/answers', data/*, config*/);
 
     console.log(answer.data);
 
@@ -78,19 +76,19 @@ const AnswerModal: React.FC<QuestionProps> = ({ question }) => {
 
   return (
 
-    <div className='questionModal-container'>
-      <Button variant="contained" color="primary" onClick={handleClickOpen} className='button-add'>
-        Responder <FiPlus size={20} className='plusIcon' />
-      </Button>
+    <div>
+      <button onClick={handleClickOpen} className='add-question-button'>
+        <span>Responder</span> <FiPlus size={20} className='plusIcon' />
+      </button>
 
       <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="dialog-pergunta">
-        <DialogTitle id="form-dialog-title">Pergunta {question.id}</DialogTitle>
+        <DialogTitle id="form-dialog-title">Envie sua resposta</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {question.subject}
+            {subject}
           </DialogContentText>
           <Typography gutterBottom>
-            {question.content}
+            {content}
           </Typography>
 
           <TextField
