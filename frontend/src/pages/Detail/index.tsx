@@ -7,6 +7,8 @@ import './index.css';
 import Header from '../../components/Header';
 import Button from '../../components/shared/Button';
 import AnswerCard from '../../components/AnswerCard';
+import AnswerModal from '../../components/AnswerModal';
+
 
 interface Answer {
     content: string
@@ -15,6 +17,7 @@ interface Answer {
 
 interface Question {
     question: {
+        id: number,
         subject: string,
         content: string,
         owner: string,
@@ -24,6 +27,7 @@ interface Question {
 
 interface QuestionResponse {
     question: {
+        id: number,
         subject: string,
         content: string,
         owner: string,
@@ -38,10 +42,19 @@ const Detail: React.FC = () => {
     const owner = question?.question.owner;
     const answers = question?.answers;
     const numberOfAnswers = answers?.length;
+    const questionToAnswer = {
+        id: question?.question.id,
+        subject: question?.question.subject,
+        content: question?.question.content
+    }
 
     const loadQuestion = async () => {
         const response = await api.get<QuestionResponse>(`/questions/${id}`);
 
+<<<<<<< HEAD
+=======
+        console.log(response.data);
+>>>>>>> 592d6dddb3d7b636204cfc386129488dca65bfc0
         SetQuestion(response.data);
     }
 
@@ -56,7 +69,8 @@ const Detail: React.FC = () => {
             <section className="question-section">
                 <strong>{subject}</strong>
                 <p>{content}</p>
-                <Button value='Responder' />
+                {/* <Button value='Responder' /> */}
+                <AnswerModal question={questionToAnswer}/>
             </section>
             <ul className="answer-section" >
                 <div className="answer-divisor">
