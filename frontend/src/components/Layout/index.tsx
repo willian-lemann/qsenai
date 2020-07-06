@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../service/api';
+import { orderBy } from 'lodash';
 
 import './index.css';
 
@@ -19,35 +20,31 @@ interface QuestionResponse {
     owner: string,
 }
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNTkzNTczNzQ5LCJleHAiOjE1OTM2NjAxNDl9.WpnSY0VHKh4dAIzOx7KQTfy7qoRE0SIoLHlfTl-2LVE';
 
 const Layout: React.FC = () => {
     const [questions, SetQuestions] = useState<Question[]>([]);
-    const [page, setPage] = useState(1);
 
+    const loadQuestions = async () => {
+        const response = await api.get<QuestionResponse[]>('/questions', {
+            params: {
+                user_id: 4
+            },
+        });
+        SetQuestions(response.data);
+
+    }
 
     useEffect(() => {
-        const loadQuestions = async () => {
-            const response = await api.get<QuestionResponse[]>('/questions', {
-                params: {
-                    user_id: 4,
-                    page
-                },
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                }
-
-            });
-            SetQuestions(response.data);
-        }
         loadQuestions();
+    }, []);
 
-    }, [page]);
+
+    let filteredQuestions = orderBy(questions, [(question: Question) => question.content.toLowerCase()], ['asc']);
 
     return (
         <div className='layout-container'>
             <ul>
-                {questions.map(question => (
+                {filteredQuestions.map((question: Question) => (
                     <QuestionCard key={question.id} question={question} />
                 ))}
             </ul>

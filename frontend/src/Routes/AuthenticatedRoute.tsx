@@ -1,5 +1,8 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom'
+import LocalStorageService from '../service/AxiosConfig/LocalStorageService';
+
+const localStorageService = LocalStorageService();
 
 interface PrivateRouteProps {
     component: React.FC<any>,
@@ -8,7 +11,11 @@ interface PrivateRouteProps {
     exact: boolean,
 }
 
-const isAuthenticate = true;
+const token = localStorageService.GetToken();
+let isAuthenticate = false;
+
+if (token)
+    isAuthenticate = true;
 
 const AuthenticatedRoute: React.FC<PrivateRouteProps> = ({ component: Component, ...otherProps }) => (
     <Route {...otherProps} render={props => (

@@ -2,14 +2,18 @@ import React from 'react';
 
 import './global.css';
 
-import DrawerNav from './components/DrawerNav';
+import { ToastContainer } from 'react-toastify';
 
 import Routes from './Routes/routes';
 
 const App: React.FC = () => (
-  <DrawerNav>
+  <>
+    <ToastContainer
+      draggable={false}
+      autoClose={2000}
+    />
     <Routes />
-  </DrawerNav>
+  </>
 );
 
 

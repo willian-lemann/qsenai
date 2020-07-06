@@ -7,6 +7,36 @@
     align-items: center;
 }
 
-.header-container .questions-card-container{
+.header-container .header-content {
+    margin-left: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 500px;
+    height: 80px;
+}
+
+.header-container .header-content strong {
+    font-size: 20px;
+    color: #444;
+}
+
+.header-container .questions-card-container {
     margin-left: 150px;
+}
+
+.header-container a {
+    text-decoration: none;
+    border-radius: 10px;
+    margin-right: 50px;
+    height: 40px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.header-container a:hover {
+    background: #f0f0f0;
 }

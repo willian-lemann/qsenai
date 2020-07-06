@@ -3,7 +3,8 @@ import React, {
     FormEvent,
     ChangeEvent
 } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import LocalStorageService from '../../service/AxiosConfig/LocalStorageService';
 
 import './index.css';
 
@@ -11,6 +12,8 @@ import { FiLogIn } from 'react-icons/fi';
 import api from '../../service/api';
 
 const RegisterForm: React.FC = () => {
+    const history = useHistory();
+    const localStorageService = LocalStorageService();
     const [selectedGraduation, SetSelectedGraduation] = useState('');
     const [formData, SetFormData] = useState({
         name: '',
@@ -29,7 +32,7 @@ const RegisterForm: React.FC = () => {
         SetSelectedGraduation(value);
     }
 
-    const HandleRegister = (event: FormEvent) => {
+    const HandleRegister = async (event: FormEvent) => {
         event.preventDefault();
 
         const { name, email, password } = formData;
@@ -40,13 +43,16 @@ const RegisterForm: React.FC = () => {
             name,
             email,
             password,
-            graduation           
+            graduation
         }
 
-        console.log('foi: ', data);
-
-        api.post('/register', data)
-            .then(response => console.log('retorno: ' , response.data));       
+        try {
+            const response = await api.post('/register', data);
+            localStorageService.SetToken(response.data.token);
+            history.push('/');
+        } catch (error) {
+            localStorageService.ClearToken();
+        }
     }
 
     return (

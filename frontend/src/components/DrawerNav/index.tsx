@@ -17,6 +17,7 @@ import './index.css'
 import Header from '../Header';
 import UserHeader from '../UserHeader';
 import { FiUser } from 'react-icons/fi';
+import { ToastContainer } from 'react-toastify';
 
 const drawerWidth = 270;
 
@@ -69,7 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
             ...theme.mixins.toolbar,
         },
 
-        content: {
+        content: { 
             width: '100%',
         },
     }),
