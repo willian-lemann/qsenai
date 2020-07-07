@@ -1,23 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
-import { createStyles, makeStyles, useTheme, Theme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import ListItemText from '@material-ui/core/ListItemText';
-import { GoChevronLeft } from 'react-icons/go';
 
 import './index.css'
 
-import Header from '../Header';
-import UserHeader from '../UserHeader';
+import LocalStorageService from '../../service/AxiosConfig/LocalStorageService';
+
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import { GoChevronLeft } from 'react-icons/go';
 import { FiUser } from 'react-icons/fi';
-import { ToastContainer } from 'react-toastify';
+
+import UserHeader from '../UserHeader';
 
 const drawerWidth = 270;
 
@@ -70,16 +63,24 @@ const useStyles = makeStyles((theme: Theme) =>
             ...theme.mixins.toolbar,
         },
 
-        content: { 
+        content: {
             width: '100%',
         },
     }),
 );
 
 const DrawerNav: React.FC = ({ children }) => {
+    const localStorageService = LocalStorageService();
     const classes = useStyles();
     const [isOpen, SetIsOpen] = useState(true);
+    const [loggedUser, SetLoggedUser] = useState<string | null>('');
 
+    useEffect(() => {
+        const { user } = localStorageService.GetToken();
+        console.log(user)
+        SetLoggedUser(user);
+    }, []);
+    console.log(loggedUser)
     return (
         <div className={classes.root}>
             <Drawer
@@ -107,7 +108,7 @@ const DrawerNav: React.FC = ({ children }) => {
                     }
 
                     <div className={!isOpen ? classes.hide : 'drawer-container'}>
-                        <UserHeader>
+                        <UserHeader user={loggedUser}>
                             <GoChevronLeft className='arrowLeftIcon' onClick={() => SetIsOpen(!isOpen)} />
                         </UserHeader>
                     </div>

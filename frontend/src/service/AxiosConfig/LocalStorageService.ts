@@ -1,12 +1,15 @@
 const LocalStorageService = () => {
 
-
-    const SetToken = (token: string) => {
+    const SetToken = (token: string, user: string) => {
         localStorage.setItem('access_token', token);
+        localStorage.setItem('logged_user', user);
     }
 
     const GetToken = () => {
-        return localStorage.getItem('access_token');
+        const token = localStorage.getItem('access_token');
+        const user = localStorage.getItem('logged_user');
+
+        return { token, user };
     }
 
     const GetRefreshedToken = () => {
@@ -16,6 +19,7 @@ const LocalStorageService = () => {
     const ClearToken = () => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refreshed_token');
+        localStorage.removeItem('logged_user');
     }
 
     return {

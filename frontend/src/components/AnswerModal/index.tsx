@@ -15,73 +15,64 @@ import Typography from '@material-ui/core/Typography';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 import api from '../../service/api';
 
 interface QuestionProps {
-  question: {
+  data: {
     id?: number,
     subject?: string,
     content?: string,
+    owner?: string,
   }
 }
 
-const AnswerModal: React.FC<QuestionProps> = ({ question }) => {
-
-  const content = question?.content;
-  const id = question?.id;
-  const subject = question?.subject;
-
-  const notify = () => toast("Resposta enviada!");
-
+const AnswerModal: React.FC<QuestionProps> = ({ data: { id, subject, content, owner } }) => {
   const [open, setOpen] = useState(false);
-
-  const [answerData, SetAnswerFormData] = useState({
-    content: ''
+  const [answerFormData, SetAnswerFormData] = useState({
+    answerContent: ''
   });
 
-  const handleClickOpen = () => {
+  const notify = () => toast("Resposta enviada!", {
+    type: 'success',
+    className: 'toastcontainer'
+  });
+
+  const HandleOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const HandleClose = () => {
     setOpen(false);
   };
 
   const HandleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    SetAnswerFormData({ ...answerData, [name]: value });
+    SetAnswerFormData({ ...answerFormData, [name]: value });
   }
 
-  const handleSendAnswer = async () => {
-    const { content } = answerData;
+  const HandleSubmitAnswer = async () => {
+    const { answerContent } = answerFormData;
 
-    const question_id = question.id;
-    
     const data = {
-      question_id,
-      content
+      id,
+      answerContent
     };
 
-    console.log('mandando:', data);
+    const answer = await api.post('/answers', data);
 
-    const answer = await api.post('/answers', data/*, config*/);
+    answer !== null && notify();
 
-    console.log(answer.data);
-
-    answer && notify();
-
-    handleClose();
+    HandleClose();
   }
 
   return (
 
     <div>
-      <button onClick={handleClickOpen} className='add-question-button'>
+      <Button onClick={HandleOpen} className='add-question-button'>
         <span>Responder</span> <FiPlus size={20} className='plusIcon' />
-      </button>
+      </Button>
 
-      <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="dialog-pergunta">
+      <Dialog fullWidth maxWidth="md" open={open} onClose={HandleClose} aria-labelledby="form-dialog-title" className="dialog-pergunta">
         <DialogTitle id="form-dialog-title">Envie sua resposta</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -90,7 +81,6 @@ const AnswerModal: React.FC<QuestionProps> = ({ question }) => {
           <Typography gutterBottom>
             {content}
           </Typography>
-          
 
           <TextField
             id="outlined-multiline-static"
@@ -102,14 +92,14 @@ const AnswerModal: React.FC<QuestionProps> = ({ question }) => {
             fullWidth
             onChange={HandleInputChange}
           />
+
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary">
+          <Button onClick={HandleClose} color="secondary">
             Cancelar
-                </Button>
-          <Button onClick={handleSendAnswer} variant="contained" color="primary">
+          </Button>
+          <Button onClick={HandleSubmitAnswer} variant="contained" color="primary">
             <span>Enviar </span><FiSend size={20} />
-
           </Button>
         </DialogActions>
       </Dialog>

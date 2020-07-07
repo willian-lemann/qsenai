@@ -48,7 +48,7 @@ const RegisterForm: React.FC = () => {
 
         try {
             const response = await api.post('/register', data);
-            localStorageService.SetToken(response.data.token);
+            localStorageService.SetToken(response.data.token, response.data.token);
             history.push('/');
         } catch (error) {
             localStorageService.ClearToken();

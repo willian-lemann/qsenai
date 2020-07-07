@@ -11,18 +11,16 @@ import AnswerModal from '../../components/AnswerModal';
 
 
 interface Answer {
-    content: string
-    owner: string
+    content: string,
+    question_id: number,
+    answerOwner: string
 }
 
 interface Question {
-    question: {
-        id: number,
-        subject: string,
-        content: string,
-        owner: string,
-    }
-    answers: Answer[]
+    id?: number,
+    subject?: string,
+    content?: string,
+    owner?: string,
 }
 
 interface QuestionResponse {
@@ -35,27 +33,16 @@ interface QuestionResponse {
     answers: Answer[]
 }
 const Detail: React.FC = () => {
-    const { id } = useParams();
-    const [question, SetQuestion] = useState<Question>();
-    const subject = question?.question.subject;
-    const content = question?.question.content;
-    const owner = question?.question.owner;
-    const answers = question?.answers;
+    const { id: question_id } = useParams();
+    const [question, SetQuestion] = useState<Question>({});
+    const [answers, SetAnswers] = useState<Answer[]>();
     const numberOfAnswers = answers?.length;
-    const questionToAnswer = {
-        id: question?.question.id,
-        subject: question?.question.subject,
-        content: question?.question.content
-    }
+    const { id, subject, content, owner } = question;
 
     const loadQuestion = async () => {
-        const response = await api.get<QuestionResponse>(`/questions/${id}`);
-
-<<<<<<< HEAD
-=======
-        console.log(response.data);
->>>>>>> 592d6dddb3d7b636204cfc386129488dca65bfc0
-        SetQuestion(response.data);
+        const response = await api.get<QuestionResponse>(`/questions/${question_id}`);
+        SetQuestion(response.data.question);
+        SetAnswers(response.data.answers)
     }
 
     useEffect(() => {
@@ -69,8 +56,7 @@ const Detail: React.FC = () => {
             <section className="question-section">
                 <strong>{subject}</strong>
                 <p>{content}</p>
-                {/* <Button value='Responder' /> */}
-                <AnswerModal question={questionToAnswer}/>
+                <AnswerModal data={question} />
             </section>
             <ul className="answer-section" >
                 <div className="answer-divisor">

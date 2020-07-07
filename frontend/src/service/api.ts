@@ -1,18 +1,15 @@
 import axios from 'axios';
 import LocalStorageService from './AxiosConfig/LocalStorageService';
-
+const url = 'http://localhost:3333'
 
 const localStorageService = LocalStorageService();
-
-const url = 'http://localhost:3333'
+const { token } = localStorageService.GetToken();
 
 const api = axios.create({
     baseURL: url,
 });
 
 api.interceptors.request.use(config => {
-    const token = localStorageService.GetToken();
-
     if (token)
         config.headers['Authorization'] = `Bearer ${token}`;
 
@@ -29,15 +26,14 @@ api.interceptors.response.use(response => {
     const orginalRequest = error.config;
 
     if (error.response?.status === 401 && !orginalRequest._retry) {
-
         orginalRequest._retry = true;
-        return axios.post('http://localhost:3333/authenticate', {
+        return axios.post(`${url}/authenticate`, {
             'refresh-token': localStorageService.GetRefreshedToken()
         }).then(response => {
             if (response.status === 201) {
-                localStorageService.SetToken(response.data);
+                localStorageService.SetToken(response.data.token, response.data.user);
 
-                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorageService.GetToken()}`;
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 return axios(orginalRequest);
             }
         })

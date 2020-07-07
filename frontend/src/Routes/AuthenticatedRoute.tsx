@@ -11,7 +11,7 @@ interface PrivateRouteProps {
     exact: boolean,
 }
 
-const token = localStorageService.GetToken();
+const { token } = localStorageService.GetToken();
 let isAuthenticate = false;
 
 if (token)
