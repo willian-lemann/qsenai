@@ -18,6 +18,8 @@ routes.get('/questions', authMiddlwware, questionController.Index);
 routes.get('/questions/:user_id/all', authMiddlwware, questionController.AllByUserID);
 routes.get('/questions/:question_id', authMiddlwware, questionController.Show);
 routes.post('/questions', authMiddlwware, questionController.Create);
+routes.put('/questions/:id', authMiddlwware, questionController.Update);
+routes.delete('/questions/:id', authMiddlwware, questionController.Delete);
 
 routes.post('/answers', authMiddlwware, answerController.Create);
 

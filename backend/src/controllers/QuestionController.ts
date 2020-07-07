@@ -54,6 +54,31 @@ class QuestionController {
         return response.json(user);
     }
 
+    async Update(request: Request, response: Response) {
+        const data = request.body;
+        const { id } = request.params;
+
+        const question = await questionService.Show(Number(id));
+
+        if (!question) response.status(404).json({ error: 'Question not found' });
+         
+        const updateQuestion = await questionService.Update(data, Number(id));
+
+        return response.json(updateQuestion);
+    }
+
+    async Delete(request: Request, response: Response) {
+        const { id } = request.params;
+        
+        const question = await questionService.Show(Number(id));
+
+        if (!question) response.status(404).json({ error: 'Question not found' });
+            
+        const questionDeleted = await questionService.Delete(Number(id));
+
+        return response.json(questionDeleted);
+    }
+
 };
 
 export default QuestionController;

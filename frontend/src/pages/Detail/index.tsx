@@ -8,6 +8,9 @@ import Header from '../../components/Header';
 import Button from '../../components/shared/Button';
 import AnswerCard from '../../components/AnswerCard';
 import AnswerModal from '../../components/AnswerModal';
+import UpdateQuestionModal from '../../components/UpdateQuestionModal';
+import LocalStorageService from '../../service/AxiosConfig/LocalStorageService';
+import DeleteQuestionButton from '../../components/DeleteQuestionButton';
 
 
 interface Answer {
@@ -17,7 +20,7 @@ interface Answer {
 }
 
 interface Question {
-    id?: number,
+    id?: number | undefined,
     subject?: string,
     content?: string,
     owner?: string,
@@ -33,6 +36,17 @@ interface QuestionResponse {
     answers: Answer[]
 }
 const Detail: React.FC = () => {
+
+    const localStorageService = LocalStorageService();
+    const [loggedUser, SetLoggedUser] = useState<string | null>('');
+
+    useEffect(() => {
+        const { user } = localStorageService.GetToken();
+        console.log(user)
+        SetLoggedUser(user);
+    }, []);
+    console.log(loggedUser);
+
     const { id: question_id } = useParams();
     const [question, SetQuestion] = useState<Question>({});
     const [answers, SetAnswers] = useState<Answer[]>();
@@ -57,6 +71,10 @@ const Detail: React.FC = () => {
                 <strong>{subject}</strong>
                 <p>{content}</p>
                 <AnswerModal data={question} />
+                
+                {(owner === loggedUser && numberOfAnswers == 0) && <UpdateQuestionModal data={question} />}
+                {owner === loggedUser && <DeleteQuestionButton id={ id } />}
+
             </section>
             <ul className="answer-section" >
                 <div className="answer-divisor">

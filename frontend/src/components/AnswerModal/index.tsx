@@ -54,8 +54,8 @@ const AnswerModal: React.FC<QuestionProps> = ({ data: { id, subject, content, ow
     const { answerContent } = answerFormData;
 
     const data = {
-      id,
-      answerContent
+      question_id: id,
+      content: answerContent
     };
 
     const answer = await api.post('/answers', data);
@@ -68,9 +68,9 @@ const AnswerModal: React.FC<QuestionProps> = ({ data: { id, subject, content, ow
   return (
 
     <div>
-      <Button onClick={HandleOpen} className='add-question-button'>
+      <button onClick={HandleOpen} className='add-question-button'>
         <span>Responder</span> <FiPlus size={20} className='plusIcon' />
-      </Button>
+      </button>
 
       <Dialog fullWidth maxWidth="md" open={open} onClose={HandleClose} aria-labelledby="form-dialog-title" className="dialog-pergunta">
         <DialogTitle id="form-dialog-title">Envie sua resposta</DialogTitle>
@@ -85,7 +85,7 @@ const AnswerModal: React.FC<QuestionProps> = ({ data: { id, subject, content, ow
           <TextField
             id="outlined-multiline-static"
             label="Resposta"
-            name="content"
+            name="answerContent"
             multiline
             rows={4}
             variant="outlined"

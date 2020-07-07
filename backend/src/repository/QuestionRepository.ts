@@ -6,6 +6,13 @@ interface NewQuestion {
     user_id: number,
 }
 
+interface UpdateQuestion {
+    id: number,
+    subject: string,
+    content: string,
+    user_id: number,
+}
+
 class QuestionRepository {
     async Index() {
         const [count] = await knex('question').count();
@@ -62,10 +69,19 @@ class QuestionRepository {
         return await knex('question').insert(newQuestion);
     }
 
-    async QuestionByID(questionId: number) {
+    async Update(updateQuestion: UpdateQuestion, id: number) {
         return await knex('question')
-            .select('question.*')
-            .where('question.id', questionId);
+        .where('id', id)
+        .update({
+            subject: updateQuestion.subject,
+            content: updateQuestion.content
+        });
+    }
+
+    async Delete(questionId: number) {
+        return await knex('question')
+        .where('question.id', questionId)
+        .del()
     }
 
 
