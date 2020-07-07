@@ -8,6 +8,13 @@ interface NewQuestion {
     user_id: number,
 }
 
+interface UpdateQuestion {
+    id: number,
+    subject: string,
+    content: string,
+    user_id: number
+}
+
 class QuestionService {
 
     async Index() {
@@ -30,10 +37,17 @@ class QuestionService {
         return question;
     }
 
-    async QuestionByID(questionID: number) {
-        const questions = await questionRepository.QuestionByID(questionID);
+    async Update(updateQuestion: UpdateQuestion, id: number) {
 
-        return questions;
+        const question = await questionRepository.Update(updateQuestion);
+
+        return question;
+    }
+
+    async Delete(questionId: number) {
+        const question = await questionRepository.Delete(questionId);
+        
+        return question;
     }
 };
 
