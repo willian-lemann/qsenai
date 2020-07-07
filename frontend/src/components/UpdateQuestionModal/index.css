@@ -1,4 +1,4 @@
-.add-answer-button {
+.add-update-button {
     border: 0;
     border-radius: 8px;
     background: '0080c0#';
@@ -13,23 +13,23 @@
     transition: background 0.3s;
 }
 
-.add-answer-button span {
+.add-update-button span {
     font-size: 20px;
     font-weight: bold;
     color: white;
 }
 
-.add-answer-button .plusIcon {
+.add-update-button .plusIcon {
     font-size: 20px;
     font-weight: bold;
     color: white;
 }
 
-.add-answer-button:hover {
+.add-update-button:hover {
     background: #e46334;
 }
 
-.add-answer-button-secundary {
+.add-update-button-secundary {
     border: 0;
     border-radius: 8px;
     background: #f0f0f0;
@@ -44,16 +44,16 @@
     transition: background 0.3s;
 }
 
-.add-answer-button-secundary:hover {
+.add-update-button-secundary:hover {
     background: #c2c1c1;
 }
 
-.add-answer-button-secundary span {
+.add-update-button-secundary span {
     font-size: 20px;
     font-weight: bold;
     color: #FF5617;
 }
 
-.add-answer-button-secundary .plusIcon {
+.add-update-button-secundary .plusIcon {
     color: #FF5617;
 }

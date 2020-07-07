@@ -38,8 +38,10 @@ class QuestionService {
     }
 
     async Update(updateQuestion: UpdateQuestion, id: number) {
+        const answers = await questionRepository.Show(id);
+        console.log(answers);
 
-        const question = await questionRepository.Update(updateQuestion);
+        const question = await questionRepository.Update(updateQuestion, id);
 
         return question;
     }

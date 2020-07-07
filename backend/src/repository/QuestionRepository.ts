@@ -69,9 +69,9 @@ class QuestionRepository {
         return await knex('question').insert(newQuestion);
     }
 
-    async Update(updateQuestion: UpdateQuestion) {
+    async Update(updateQuestion: UpdateQuestion, id: number) {
         return await knex('question')
-        .where('question.id', updateQuestion.id)
+        .where('id', id)
         .update({
             subject: updateQuestion.subject,
             content: updateQuestion.content
