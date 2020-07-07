@@ -72,43 +72,39 @@ const AddQuestionButton: React.FC<AddQuestionButtonProps> = ({ value }) => {
                 <FiPlus size={20} className='plusIcon' />
             </button>
 
-            <Dialog fullWidth maxWidth="md" open={open} onClose={HandleClose} aria-labelledby="form-dialog-title" className="dialog-pergunta">
-                <DialogTitle id="form-dialog-title">Pergunta</DialogTitle>
-                <DialogContent>
+            <Dialog fullWidth maxWidth="sm" open={open} onClose={HandleClose} aria-labelledby="form-dialog-title" className="dialog-container">
+                <DialogTitle className='dialog-title' id="form-dialog-title">Pergunta</DialogTitle>
+                <DialogContent className='dialog-content'>
                     <DialogContentText>
                         Qual sua dúvida?
                     </DialogContentText>
 
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        name="subject"
-                        type="text"
-                        fullWidth
-                        placeholder="Assunto"
-                        onChange={HandleInputChange}
-                    />
+                    <section className='input-group'>
+                        <input
+                            required
+                            className='subject-input'
+                            placeholder='Digite um assunto...'
+                            onChange={HandleInputChange}
+                        />
 
-                    <TextField
-                        id="outlined-multiline-static"
-                        label="Pergunta"
-                        name="content"
-                        multiline
-                        rows={4}
-                        variant="outlined"
-                        fullWidth
-                        onChange={HandleInputChange}
-                    />
+                        <input
+                            required
+                            className='content-input'
+                            placeholder='Digite sua pergunta...'
+                            onChange={HandleInputChange}
+                        />
+
+                    </section>
 
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={HandleClose} color="secondary"> Cancelar </Button>
-                    <Button onClick={HandleSubmitQuestion} variant="contained" color="primary">
+                <DialogActions className='dialog-actions'>
+                    <Button onClick={HandleClose} color="secondary" className='cancelButton'> Cancelar </Button>
+                    <Button onClick={HandleSubmitQuestion} variant="contained" color="primary" className='submitButton'>
                         <span>Enviar</span> <FiSend size={20} />
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div >
+        </div>
     );
 }
 

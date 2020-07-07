@@ -11,6 +11,13 @@ import './index.css';
 import { FiLogIn } from 'react-icons/fi';
 import api from '../../service/api';
 
+interface UserRegisterResponse {
+    newUser: {
+        name: string,
+    },
+    token: string
+}
+
 const RegisterForm: React.FC = () => {
     const history = useHistory();
     const localStorageService = LocalStorageService();
@@ -47,9 +54,12 @@ const RegisterForm: React.FC = () => {
         }
 
         try {
-            const response = await api.post('/register', data);
-            localStorageService.SetToken(response.data.token, response.data.token);
+            const response = await api.post<UserRegisterResponse>('/register', data);
+            const { newUser: { name }, token } = response.data;
+
+            localStorageService.SetToken(token, name);
             history.push('/');
+
         } catch (error) {
             localStorageService.ClearToken();
         }

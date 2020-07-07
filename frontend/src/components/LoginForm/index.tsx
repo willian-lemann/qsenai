@@ -45,7 +45,8 @@ const LoginForm: React.FC = () => {
 
         try {
             const response = await api.post<UserResponse>('/authenticate', data);
-            localStorageService.SetToken(response.data.token, response.data.user.name);
+            const { user: { name }, token } = response.data;
+            localStorageService.SetToken(token, name);
             history.push('/');
         } catch (error) {
             localStorageService.ClearToken();
