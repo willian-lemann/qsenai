@@ -56,6 +56,7 @@ const LoginForm: React.FC = () => {
     return (
         <form onSubmit={HandleSubmit}>
             <input
+                required
                 name='email'
                 type="text"
                 placeholder='Usuário'
@@ -63,6 +64,7 @@ const LoginForm: React.FC = () => {
             />
 
             <input
+                required
                 name='password'
                 type="password"
                 placeholder='Senha'

@@ -36,7 +36,7 @@ const Layout: React.FC = () => {
 
     useEffect(() => {
         loadQuestions();
-    }, []);
+    }, [questions]);
 
 
     let filteredQuestions = orderBy(questions, [(question: Question) => question.content.toLowerCase()], ['asc']);

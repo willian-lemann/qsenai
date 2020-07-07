@@ -23,8 +23,12 @@
     font-weight: bold;
 }
 
-.drawer-container .user-info-section .user-info-content p {
+.drawer-container .user-info-section .user-info-content .isNotOnline{
     font-weight: bold;
+}
+
+.drawer-container .user-info-section .user-info-content .isOnline {
+    color: rgb(31, 131, 31);
 }
 
 .drawer-container .user-info-section .user-info-content .circleIcon {

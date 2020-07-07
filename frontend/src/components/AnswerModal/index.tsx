@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 
 import './index.css';
 
@@ -17,24 +17,34 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import api from '../../service/api';
 
+interface Answer {
+  content: string,
+  question_id: number,
+  answerOwner: string
+}
+
 interface QuestionProps {
   data: {
     id?: number,
     subject?: string,
     content?: string,
     owner?: string,
+    answers?: Answer[]
   }
+
 }
 
 const AnswerModal: React.FC<QuestionProps> = ({ data: { id, subject, content, owner } }) => {
   const [open, setOpen] = useState(false);
+  const [answers, SetAnswers] = useState([]);
   const [answerFormData, SetAnswerFormData] = useState({
     answerContent: ''
   });
 
-  const notify = () => toast("Resposta enviada!", {
+  const Notify = () => toast("Resposta enviada!", {
     type: 'success',
-    className: 'toastcontainer'
+    className: 'toastcontainer',
+
   });
 
   const HandleOpen = () => {
@@ -60,7 +70,7 @@ const AnswerModal: React.FC<QuestionProps> = ({ data: { id, subject, content, ow
 
     const answer = await api.post('/answers', data);
 
-    answer !== null && notify();
+    answer !== null && Notify();
 
     HandleClose();
   }
@@ -68,13 +78,13 @@ const AnswerModal: React.FC<QuestionProps> = ({ data: { id, subject, content, ow
   return (
 
     <div>
-      <button onClick={HandleOpen} className='add-question-button'>
+      <button onClick={HandleOpen} className='add-answer-button '>
         <span>Responder</span> <FiPlus size={20} className='plusIcon' />
       </button>
 
-      <Dialog fullWidth maxWidth="md" open={open} onClose={HandleClose} aria-labelledby="form-dialog-title" className="dialog-pergunta">
-        <DialogTitle id="form-dialog-title">Envie sua resposta</DialogTitle>
-        <DialogContent>
+      <Dialog fullWidth maxWidth="md" open={open} onClose={HandleClose} className="answer-dialog-container ">
+        <DialogTitle className="delete-dialog-title">Envie sua resposta</DialogTitle>
+        <DialogContent className='dialog-content'>
           <DialogContentText>
             {subject}
           </DialogContentText>
@@ -82,23 +92,21 @@ const AnswerModal: React.FC<QuestionProps> = ({ data: { id, subject, content, ow
             {content}
           </Typography>
 
-          <TextField
-            id="outlined-multiline-static"
-            label="Resposta"
-            name="answerContent"
-            multiline
-            rows={4}
-            variant="outlined"
-            fullWidth
+          <input
+            autoComplete='off'
+            required
+            name='content'
+            className='answer-content-input'
+            placeholder='Digite sua resposta...'
             onChange={HandleInputChange}
           />
 
         </DialogContent>
-        <DialogActions>
-          <Button onClick={HandleClose} color="secondary">
+        <DialogActions className='dialog-actions'>
+          <Button className='cancelButton' onClick={HandleClose} color="secondary">
             Cancelar
           </Button>
-          <Button onClick={HandleSubmitAnswer} variant="contained" color="primary">
+          <Button className='submitButton' onClick={HandleSubmitAnswer} variant="contained" color="primary">
             <span>Enviar </span><FiSend size={20} />
           </Button>
         </DialogActions>

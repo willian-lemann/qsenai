@@ -34,7 +34,6 @@ const AddQuestionButton: React.FC<AddQuestionButtonProps> = ({ value }) => {
     const Notify = () => toast('Questão adicionada com sucesso!', {
         type: 'success',
         className: 'toastcontainer',
-
     });
 
     const HandleOpen = () => {
@@ -82,6 +81,7 @@ const AddQuestionButton: React.FC<AddQuestionButtonProps> = ({ value }) => {
                     <section className='input-group'>
                         <input
                             required
+                            name='subject'
                             className='subject-input'
                             placeholder='Digite um assunto...'
                             onChange={HandleInputChange}
@@ -89,6 +89,8 @@ const AddQuestionButton: React.FC<AddQuestionButtonProps> = ({ value }) => {
 
                         <input
                             required
+                            autoComplete='off'
+                            name='content'
                             className='content-input'
                             placeholder='Digite sua pergunta...'
                             onChange={HandleInputChange}

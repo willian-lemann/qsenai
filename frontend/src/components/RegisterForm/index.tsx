@@ -68,24 +68,30 @@ const RegisterForm: React.FC = () => {
     return (
         <form onSubmit={HandleRegister}>
             <input
+                required
                 name='name'
                 type="text"
                 placeholder='Digite seu nome'
                 onChange={HandleInputChange}
             />
-            <select name="graduation" id="graduation" onChange={HandleSelectChange}>
+
+            <select required name="graduation" id="graduation" onChange={HandleSelectChange}>
                 <option value="0">Selecione seu curso</option>
                 <option value="Telecom">Telecom</option>
                 <option value="Redes de computadores">Redes de computadores</option>
                 <option value="Analise e desenvolvimento de sistemas">Analise e desenvolvimento de sistemas</option>
             </select>
+
             <input
+                required
                 name='email'
                 type="email"
                 placeholder='Digite seu e-mail'
                 onChange={HandleInputChange}
             />
+            
             <input
+                required
                 name='password'
                 type="password"
                 placeholder='Senha'

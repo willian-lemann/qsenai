@@ -11,10 +11,10 @@ const UserHeader: React.FC<UserHeaderProps> = ({ children: Button, user }) => {
         <div className="user-info-section">
             <div className='user-info-content'>
                 <span>{user}</span>
-                <p>On-line</p>
+                <p className={user !== '' ? "isOnline" : "isNotOnline"}>On-line</p>
             </div>
             {Button}
-        </div>
+        </div >
 
     );
 }

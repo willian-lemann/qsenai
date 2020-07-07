@@ -1,9 +1,12 @@
 .add-update-button {
     border: 0;
+    position: absolute;
+    right: 60px;
+    top: 120px;
     border-radius: 8px;
-    background: '0080c0#';
-    height: 50px;
-    width: 200px;
+    background: #e46334;
+    height: 30px;
+    width: 40px;
     margin-right: 120px;
     cursor: pointer;
     outline: none;

@@ -113,3 +113,8 @@
     background: #FF5617;
     width: 150px;
 }
+
+.toastcontainer {
+    background: linear-gradient(to right, #FF5617, #f18056);
+    text-align: center;
+}
