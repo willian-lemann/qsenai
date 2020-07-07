@@ -1,12 +1,15 @@
 import express from 'express';
-import socketio from 'socket.io';
-import http from 'http';
+import { Server } from 'http';
 import cors from 'cors';
 import routes from './routes';
 const port = process.env.PORT || 3333;
 
-const app = express();
+import { webSocketConfig } from './websocket';
 
+const app = express();
+const server = new Server(app);
+
+webSocketConfig(server);
 
 app.use(cors({
     exposedHeaders: 'x-total-count'
