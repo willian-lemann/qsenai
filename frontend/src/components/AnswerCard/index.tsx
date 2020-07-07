@@ -4,15 +4,15 @@ import './index.css';
 
 interface AnswerCardProps {
     answer: {
-        owner: string,
+        answerOwner: string,
         content: string
     }
 }
 
-const AnswerCard: React.FC<AnswerCardProps> = ({ answer: { owner, content } }) => {
+const AnswerCard: React.FC<AnswerCardProps> = ({ answer: { answerOwner, content } }) => {
     return (
         <li className="answer-card-container">
-            <strong>{owner}</strong>
+            <strong>{answerOwner}</strong>
             <p>{content}</p>
         </li>
     );

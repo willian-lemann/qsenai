@@ -12,6 +12,13 @@ interface UserCredencials {
     password: string
 }
 
+interface UserResponse {
+    user: {
+        name: string
+    },
+    token: string
+}
+
 const LoginForm: React.FC = () => {
     const history = useHistory();
     const localStorageService = LocalStorageService();
@@ -37,8 +44,8 @@ const LoginForm: React.FC = () => {
         }
 
         try {
-            const response = await api.post('/authenticate', data);
-            localStorageService.SetToken(response.data.token);
+            const response = await api.post<UserResponse>('/authenticate', data);
+            localStorageService.SetToken(response.data.token, response.data.user.name);
             history.push('/');
         } catch (error) {
             localStorageService.ClearToken();
@@ -62,7 +69,7 @@ const LoginForm: React.FC = () => {
             />
             <div className="actions-container">
                 <Link to='/register'>Não tem conta? Cadastre-se</Link>
-                <button onClick={() => console.log(userCredencialsFormData)}>Entrar <FiLogIn size={24} /></button>
+                <button>Entrar <FiLogIn size={24} /></button>
             </div>
         </form>
     );

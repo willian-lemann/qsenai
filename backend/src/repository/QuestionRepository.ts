@@ -21,7 +21,7 @@ class QuestionRepository {
             .select('question.*')
             .select('user.name as owner')
             .select('user.email')
-            .select('user.graduation') 
+            .select('user.graduation')
             .join('user', 'question.user_id', '=', 'user.id')
 
         return [questions, count];
@@ -37,7 +37,11 @@ class QuestionRepository {
             .where('question.id', questionId).first();
 
         const answers = await knex('answer')
-            .select('answer.*')
+            .select('answer.id')
+            .select('answer.content')
+            .select('user.name as answerOwner')
+            .select('answer.question_id')
+            .join('user', 'answer.user_id', '=', 'user.id')
             .join('question', 'question.id', '=', 'answer.question_id')
             .where('question.id', questionId);
 
@@ -80,7 +84,7 @@ class QuestionRepository {
         .del()
     }
 
-    
+
 }
 
 export default QuestionRepository;

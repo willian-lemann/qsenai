@@ -27,7 +27,7 @@ const Layout: React.FC = () => {
     const loadQuestions = async () => {
         const response = await api.get<QuestionResponse[]>('/questions', {
             params: {
-                user_id: 4
+                user_id: 1
             },
         });
         SetQuestions(response.data);
