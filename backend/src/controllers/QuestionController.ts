@@ -17,7 +17,7 @@ class QuestionController {
         const { question_id } = request.params;
 
         if (question_id == null || !Number(question_id))
-            return response.status(400).send({ error: 'question_id need to be a number' });
+            return response.status(400).send({ error: 'question id need to be a number' });
 
         const data = await questionService.Show(Number(question_id));
         const { question } = data;
@@ -69,6 +69,9 @@ class QuestionController {
 
     async Delete(request: Request, response: Response) {
         const { id } = request.params;
+
+        if (id == null || !Number(id))
+            return response.status(400).send({ error: 'question id need to be a number' });
         
         const question = await questionService.Show(Number(id));
 
