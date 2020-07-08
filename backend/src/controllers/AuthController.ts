@@ -1,16 +1,20 @@
 import { Request, Response } from 'express';
 
-import AuthService from '../services/AuthService';
+import IAuthService from '../interfaces/IAuthService';
 
-const authService = new AuthService();
+let _authService: IAuthService;
 
 class AuthController {
+    constructor(authService: IAuthService) {
+        _authService = authService;
+    }
+
     async Register(request: Request, response: Response) {
-        return await authService.Register(request, response);
+        return await _authService.Register(request, response);
     }
 
     async Authenticate(request: Request, response: Response) {
-        return await authService.Authenticate(request, response);
+        return await _authService.Authenticate(request, response);
     }
 };
 

@@ -1,11 +1,11 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { secret, expiresIn } from '../config/auth.json';
 
-import AuthRepository from '../repository/AuthRepository';
+import IAuthRepository from '../interfaces/IAuthRepository';
 
-const authRepository = new AuthRepository();
+let _authRepository: IAuthRepository
 
 interface NewUser {
     id: number,
@@ -26,18 +26,22 @@ const GenerateToken = (params: tokenParams) => {
 }
 
 class AuthService {
+    constructor(authRepository: IAuthRepository) {
+        _authRepository = authRepository;
+    }
+
     async Register(request: Request, response: Response) {
         const { email } = request.body;
         const newUser: NewUser = request.body;
 
         try {
-            if (await authRepository.findByEmail(email))
+            if (await _authRepository.findByEmail(email))
                 return response.status(400).json({ error: 'User already exists.' });
 
             const hash = await bcrypt.hash(newUser.password, 10);
             newUser.password = hash;
 
-            await authRepository.Register(newUser);
+            await _authRepository.Register(newUser);
 
             newUser.password = undefined;
 
@@ -56,7 +60,7 @@ class AuthService {
     async Authenticate(request: Request, response: Response) {
         const { email, password } = request.body;
 
-        const user = await authRepository.findByEmail(email);
+        const user = await _authRepository.findByEmail(email);
 
         if (!user)
             return response.status(400).json({ error: 'User not found.' });

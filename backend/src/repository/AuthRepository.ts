@@ -1,5 +1,7 @@
 import knex from '../database/connection';
 
+import IAuthRepository from '../interfaces/IAuthRepository';
+
 interface NewUser {
     id: number,
     name: string,
@@ -7,7 +9,7 @@ interface NewUser {
     password: string | undefined,
     graduation: string,
 }
-class AuthRepository {
+class AuthRepository implements IAuthRepository {
 
     async findByEmail(email: string) {
         const user = await knex<NewUser>('user')
@@ -20,7 +22,7 @@ class AuthRepository {
 
     async Register(newUser: NewUser) {
         return await knex('user').insert(newUser);
-    } 
+    }
 }
 
 export default AuthRepository;

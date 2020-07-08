@@ -1,3 +1,4 @@
+import IQuestionService from '../interfaces/IQuestionService';
 import QuestionRepository from '../repository/QuestionRepository';
 
 const questionRepository = new QuestionRepository();
@@ -15,13 +16,13 @@ interface UpdateQuestion {
     user_id: number
 }
 
-class QuestionService {
+class QuestionService implements IQuestionService {
 
     async Index() {
         const questions = await questionRepository.Index();
         return questions;
     }
- 
+
     async AllByUserID(userId: number) {
         const questions = await questionRepository.AllByUserID(userId);
         return questions;
@@ -31,7 +32,7 @@ class QuestionService {
         const question = await questionRepository.Show(questionId);
         return question;
     }
- 
+
     async Create(newQuestion: NewQuestion) {
         const question = await questionRepository.Create(newQuestion);
         return question;
@@ -39,7 +40,7 @@ class QuestionService {
 
     async Update(updateQuestion: UpdateQuestion, id: number) {
         const answers = await questionRepository.Show(id);
-    
+
         const question = await questionRepository.Update(updateQuestion, id);
 
         return question;
@@ -47,7 +48,7 @@ class QuestionService {
 
     async Delete(questionId: number) {
         const question = await questionRepository.Delete(questionId);
-        
+
         return question;
     }
 };
