@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import api from '../../service/api';
-import LocalStorageService from '../../service/AxiosConfig/LocalStorageService';
+import api from '../../services/api';
+import LocalStorageService from '../../services/AxiosConfig/LocalStorageService';
 
 import './index.css';
 

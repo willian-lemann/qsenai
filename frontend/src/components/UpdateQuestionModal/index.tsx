@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import api from '../../service/api';
+import api from '../../services/api';
 
 import './index.css';
 
@@ -27,29 +27,22 @@ interface QuestionProps {
 }
 
 const UpdateQuestionModal: React.FC<QuestionProps> = ({ data: { id, subject, content, owner } }) => {
-
-  const notify = () => toast("Alteração enviada!", {
-    type: 'success',
-    className: 'toastcontainer'
-  });
-
-  const notifyIgual = () => toast("Você não fez alterações!", {
-    type: 'error',
-    className: 'toastcontainer'
-  });
-
   const [open, setOpen] = useState(false);
-
   const [updateQuestionFormData, SetUpdateQuestionFormData] = useState({
     content: '',
     subject: ''
   });
 
-  const handleClickOpen = () => {
+  const Notify = (value: string) => toast(value, {
+    type: 'success',
+    className: 'toastcontainer'
+  });
+
+  const HandleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const HandleClose = () => {
     setOpen(false);
   };
 
@@ -58,7 +51,7 @@ const UpdateQuestionModal: React.FC<QuestionProps> = ({ data: { id, subject, con
     SetUpdateQuestionFormData({ ...updateQuestionFormData, [name]: value });
   }
 
-  const handleSendUpdateQuestion = async () => {
+  const HandleSendUpdateQuestion = async () => {
     const { content, subject } = updateQuestionFormData;
 
     const data = {
@@ -66,22 +59,21 @@ const UpdateQuestionModal: React.FC<QuestionProps> = ({ data: { id, subject, con
       subject
     };
 
-    const updateQuestion = await api.put(`/questions/${id}`, data);
+    const UpdateQuestion = await api.put(`/questions/${id}`, data);
 
-    updateQuestion && notify();
+    UpdateQuestion && Notify('Questão alterada com sucesso!');
 
-
-    handleClose();
+    HandleClose();
   }
 
   return (
 
     <div>
-      <button onClick={handleClickOpen} className='add-update-button'>
+      <button onClick={HandleClickOpen} className='add-update-button'>
         <FiEdit size={20} className='plusIcon' />
       </button>
 
-      <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className="dialog-pergunta">
+      <Dialog fullWidth maxWidth="md" open={open} onClose={HandleClose} aria-labelledby="form-dialog-title" className="dialog-pergunta">
         <DialogTitle id="form-dialog-title">Alteração de Pergunta</DialogTitle>
         <DialogContent>
           <TextField
@@ -107,10 +99,10 @@ const UpdateQuestionModal: React.FC<QuestionProps> = ({ data: { id, subject, con
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary">
+          <Button onClick={HandleClose} color="secondary">
             Cancelar
                 </Button>
-          <Button onClick={handleSendUpdateQuestion} variant="contained" color="primary">
+          <Button onClick={HandleSendUpdateQuestion} variant="contained" color="primary">
             <span>Alterar </span><FiSend size={20} />
 
           </Button>

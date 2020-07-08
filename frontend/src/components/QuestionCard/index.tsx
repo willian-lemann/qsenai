@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory, Route } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import './index.css';
 
@@ -22,7 +22,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question: { id, subject, co
     }
 
     return (
-        <li className='question-card-container' onClick={() => HandleDetail(id)}>
+        <li key={id} className='question-card-container' onClick={() => HandleDetail(id)}>
             <strong>{subject}</strong>
             <p>{previewedContent}...</p>
         </li>

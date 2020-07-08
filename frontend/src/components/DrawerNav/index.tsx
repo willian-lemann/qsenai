@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import './index.css'
 
-import LocalStorageService from '../../service/AxiosConfig/LocalStorageService';
+import LocalStorageService from '../../services/AxiosConfig/LocalStorageService';
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -76,14 +76,14 @@ const DrawerNav: React.FC = ({ children }) => {
     const [isOpen, SetIsOpen] = useState(true);
     const [loggedUser, SetLoggedUser] = useState<string | null>('');
 
+    const ClearLocalStorage = () => {
+        localStorageService.ClearToken();
+    };
+
     useEffect(() => {
         const { user } = localStorageService.GetToken();
         SetLoggedUser(user);
-    }, []);
-
-    const clearLocalStorage = () => {
-        localStorageService.ClearToken();
-    };
+    }, [localStorageService]);
 
     return (
         <div className={classes.root}>
@@ -116,7 +116,7 @@ const DrawerNav: React.FC = ({ children }) => {
                             <GoChevronLeft className='arrowLeftIcon' onClick={() => SetIsOpen(!isOpen)} />
                         </UserHeader>
                         <footer>
-                            <Link to='/login' onClick={clearLocalStorage}>
+                            <Link to='/login' onClick={ClearLocalStorage}>
                                 Logout
                              <FiLogOut className='logoutIcon' size={20} color='black' />
                             </Link>

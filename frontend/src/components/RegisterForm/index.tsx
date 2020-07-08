@@ -4,12 +4,12 @@ import React, {
     ChangeEvent
 } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import LocalStorageService from '../../service/AxiosConfig/LocalStorageService';
+import LocalStorageService from '../../services/AxiosConfig/LocalStorageService';
 
 import './index.css';
 
 import { FiLogIn } from 'react-icons/fi';
-import api from '../../service/api';
+import api from '../../services/api';
 
 interface UserRegisterResponse {
     newUser: {
@@ -48,22 +48,29 @@ const RegisterForm: React.FC = () => {
 
         const data = {
             name,
+            graduation,
             email,
-            password,
-            graduation
+            password
         }
 
+        console.log(data)
         try {
+            const { token: hasToken } = localStorageService.GetToken();
+
+            if (!hasToken) {
+                localStorageService.ClearToken();
+            }
+
             const response = await api.post<UserRegisterResponse>('/register', data);
             const { newUser: { name }, token } = response.data;
-
             localStorageService.SetToken(token, name);
+
             history.push('/');
 
         } catch (error) {
             localStorageService.ClearToken();
         }
-    }
+    };
 
     return (
         <form onSubmit={HandleRegister}>
@@ -89,7 +96,7 @@ const RegisterForm: React.FC = () => {
                 placeholder='Digite seu e-mail'
                 onChange={HandleInputChange}
             />
-            
+
             <input
                 required
                 name='password'

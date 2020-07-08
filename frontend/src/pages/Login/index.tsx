@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { socket } from '../../service/socket';
+import React from 'react';
+
 import './index.css';
 
 import LoginForm from '../../components/LoginForm';

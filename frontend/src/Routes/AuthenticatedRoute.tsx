@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom'
-import LocalStorageService from '../service/AxiosConfig/LocalStorageService';
+import LocalStorageService from '../services/AxiosConfig/LocalStorageService';
 
 const localStorageService = LocalStorageService();
 

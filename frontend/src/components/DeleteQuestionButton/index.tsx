@@ -1,5 +1,5 @@
 import React from 'react';
-import api from '../../service/api';
+import api from '../../services/api';
 import { useHistory } from 'react-router-dom';
 
 import './index.css';

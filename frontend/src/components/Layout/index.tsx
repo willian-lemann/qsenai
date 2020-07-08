@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../service/api';
+import api from '../../services/api';
 import { orderBy } from 'lodash';
 
 import './index.css';
@@ -31,12 +31,11 @@ const Layout: React.FC = () => {
             },
         });
         SetQuestions(response.data);
-
     }
 
     useEffect(() => {
         loadQuestions();
-    }, [questions]);
+    }, []);
 
 
     let filteredQuestions = orderBy(questions, [(question: Question) => question.content.toLowerCase()], ['asc']);

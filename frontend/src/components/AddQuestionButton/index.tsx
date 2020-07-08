@@ -1,12 +1,11 @@
-import React, { ChangeEvent, useState, useContext } from 'react';
-import api from '../../service/api';
+import React, { ChangeEvent, useState } from 'react';
+import api from '../../services/api';
 
 import './index.css';
 
 import { FiPlus, FiSend } from 'react-icons/fi';
 
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';

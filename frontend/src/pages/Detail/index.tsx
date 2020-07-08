@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
-import api from '../../service/api';
+import api from '../../services/api';
 
 import './index.css';
 
 import Header from '../../components/Header';
-import Button from '../../components/shared/Button';
 import AnswerCard from '../../components/AnswerCard';
 import AnswerModal from '../../components/AnswerModal';
 import UpdateQuestionModal from '../../components/UpdateQuestionModal';
-import LocalStorageService from '../../service/AxiosConfig/LocalStorageService';
+import LocalStorageService from '../../services/AxiosConfig/LocalStorageService';
 import DeleteQuestionButton from '../../components/DeleteQuestionButton';
 
 
@@ -35,6 +34,7 @@ interface QuestionResponse {
     }
     answers: Answer[]
 }
+
 const Detail: React.FC = () => {
     const localStorageService = LocalStorageService();
     const { id: question_id } = useParams();
@@ -55,7 +55,8 @@ const Detail: React.FC = () => {
 
         loadQuestion();
         SetLoggedUser(user);
-    }, [question]);
+
+    }, []);
 
     return (
         <div className="detail-container">
@@ -68,7 +69,7 @@ const Detail: React.FC = () => {
                     <AnswerModal data={question} />
 
                     <div className='actions-group'>
-                        {(owner === loggedUser && numberOfAnswers == 0) && <UpdateQuestionModal data={question} />}
+                        {(owner === loggedUser && numberOfAnswers === 0) && <UpdateQuestionModal data={question} />}
                         {owner === loggedUser && <DeleteQuestionButton id={id} />}
                     </div>
                 </div>
