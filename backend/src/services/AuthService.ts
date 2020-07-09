@@ -29,6 +29,22 @@ const GenerateToken = (params: tokenParams) => {
 
 class AuthService implements IAuthService {
 
+<<<<<<< HEAD
+=======
+    private static instance: AuthService;
+
+    private AuthService() {}
+
+    public static getInstance(): AuthService {
+        if (!AuthService.instance) {
+            AuthService.instance = new AuthService();
+        }
+
+        return AuthService.instance;
+    }
+
+
+>>>>>>> d272e1eefab3a1ffd60a260ed56c5d5213570c72
     async Register(request: Request, response: Response) {
         const { email } = request.body;
         const newUser: NewUser = request.body;
