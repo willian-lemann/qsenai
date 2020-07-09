@@ -12,19 +12,17 @@ class AnswerService implements IAnswerService {
 
     private static instance: AnswerService;
 
-    private AnswerService() {}
+    private AnswerService() { }
 
     public static getInstance(): AnswerService {
         if (!AnswerService.instance) {
             AnswerService.instance = new AnswerService();
         }
-
         return AnswerService.instance;
     }
 
     async Create(newAnswer: NewAnswer) {
         const answer = await answerRepository.Create(newAnswer);
-
         return answer;
     }
 };
