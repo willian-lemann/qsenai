@@ -18,6 +18,18 @@ interface UpdateQuestion {
 
 class QuestionService implements IQuestionService {
 
+    private static instance: QuestionService;
+
+    private QuestionService() {}
+
+    public static getInstance(): QuestionService {
+        if (!QuestionService.instance) {
+            QuestionService.instance = new QuestionService();
+        }
+
+        return QuestionService.instance;
+    }
+
     async Index() {
         const questions = await questionRepository.Index();
         return questions;
