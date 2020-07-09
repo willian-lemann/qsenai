@@ -5,7 +5,7 @@ import QuestionService from '../services/QuestionService';
 const questionService = new QuestionService();
 
 class QuestionController {
-    async Index(request: Request, response: Response) {
+    async Index(response: Response) {
         const [questions, count] = await questionService.Index();
 
         response.header('x-total-count', count['count(*)']);
