@@ -11,6 +11,18 @@ interface NewUser {
 }
 class AuthRepository implements IAuthRepository {
 
+    private static instance: AuthRepository;
+
+    private AuthRepository() {}
+
+    public static getInstance(): AuthRepository {
+        if (!AuthRepository.instance) {
+            AuthRepository.instance = new AuthRepository();
+        }
+
+        return AuthRepository.instance;
+    }
+
     async findByEmail(email: string) {
         const user = await knex<NewUser>('user')
             .select('*')
