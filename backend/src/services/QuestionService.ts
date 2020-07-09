@@ -1,4 +1,5 @@
 import QuestionRepository from '../repository/QuestionRepository';
+import IQuestionService from '../interfaces/IQuestionService';
 
 const questionRepository = new QuestionRepository();
 
@@ -15,7 +16,7 @@ interface UpdateQuestion {
     user_id: number
 }
 
-class QuestionService {
+class QuestionService implements IQuestionService {
 
     async Index() {
         const questions = await questionRepository.Index();

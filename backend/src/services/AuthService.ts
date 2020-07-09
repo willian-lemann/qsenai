@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import { secret, expiresIn } from '../config/auth.json';
 
 import AuthRepository from '../repository/AuthRepository';
+import IAuthService from '../interfaces/IAuthService';
 
 const authRepository = new AuthRepository();
 
@@ -25,7 +26,7 @@ const GenerateToken = (params: tokenParams) => {
     });
 }
 
-class AuthService {
+class AuthService implements IAuthService {
     async Register(request: Request, response: Response) {
         const { email } = request.body;
         const newUser: NewUser = request.body;
