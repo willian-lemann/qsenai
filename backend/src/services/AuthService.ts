@@ -33,14 +33,6 @@ class AuthService implements IAuthService {
         const { email } = request.body;
         const newUser: NewUser = request.body;
 
-        const queue = new Queue('queue');
-        const job = await queue.add({
-            email: 'willianleman@hotmail.com'
-        });
-
-
-
-
         try {
             if (await authRepository.findByEmail(email))
                 return response.status(400).json({ error: 'User already exists.' });

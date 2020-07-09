@@ -5,6 +5,7 @@ import AnswerService from '../services/AnswerService';
 const answerService = new AnswerService();
 
 class AnswerController {
+    
     async Create(request: Request, response: Response) {
         const { content, question_id, user_id } = request.body;
 

@@ -7,6 +7,19 @@ interface NewAnswer {
 }
 
 class AnswerRepository implements IAnswerRepository {
+
+    private static instance: AnswerRepository;
+
+    private AnswerRepository() {}
+
+    public static getInstance(): AnswerRepository {
+        if (!AnswerRepository.instance) {
+            AnswerRepository.instance = new AnswerRepository();
+        }
+
+        return AnswerRepository.instance;
+    }
+
     async Create(newAnswer: NewAnswer) {
         return await knex('answer').insert(newAnswer);
     }
