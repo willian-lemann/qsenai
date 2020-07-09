@@ -58,11 +58,9 @@ class QuestionController {
         const data = request.body;
         const { id } = request.params;
 
-        const question = await questionService.Show(Number(id));
-
-        if (!question) response.status(404).json({ error: 'Question not found' });
-         
         const updateQuestion = await questionService.Update(data, Number(id));
+
+        if (!updateQuestion) response.status(404).json({ error: 'Question not found' });
 
         return response.json(updateQuestion);
     }
@@ -73,11 +71,9 @@ class QuestionController {
         if (id == null || !Number(id))
             return response.status(400).send({ error: 'question id need to be a number' });
         
-        const question = await questionService.Show(Number(id));
-
-        if (!question) response.status(404).json({ error: 'Question not found' });
-            
         const questionDeleted = await questionService.Delete(Number(id));
+
+        if (!questionDeleted) response.status(404).json({ error: 'Question not found' });
 
         return response.json(questionDeleted);
     }
