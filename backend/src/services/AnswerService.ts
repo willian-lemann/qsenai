@@ -1,19 +1,16 @@
-import IAnswerRepository from '../interfaces/IAnswerRepository';
+import AnswerRepository from '../repository/AnswerRepository';
 
-let _answerRepository: IAnswerRepository;
+const answerRepository = new AnswerRepository();
 
 interface NewAnswer {
     content: string,
     question_id: number,
 }
 
-class AnswerService implements IAnswerRepository {
-    constructor(answerRepository: IAnswerRepository) {
-        _answerRepository = answerRepository;
-    }
+class AnswerService {
 
     async Create(newAnswer: NewAnswer) {
-        const answer = await _answerRepository.Create(newAnswer);
+        const answer = await answerRepository.Create(newAnswer);
 
         return answer;
     }

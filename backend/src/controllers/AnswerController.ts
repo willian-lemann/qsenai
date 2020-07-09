@@ -1,14 +1,10 @@
 import { Request, Response } from 'express';
 
-import IAnswerService from '../interfaces/IAnswerService';
+import AnswerService from '../services/AnswerService';
 
-let _answerService: IAnswerService;
+const answerService = new AnswerService();
 
 class AnswerController {
-    constructor(answerService: IAnswerService) {
-        _answerService = answerService;
-    }
-
     async Create(request: Request, response: Response) {
         const { content, question_id, user_id } = request.body;
 
@@ -16,9 +12,9 @@ class AnswerController {
             content,
             question_id,
             user_id
-        };
+        }
 
-        const answer = await _answerService.Create(data);
+        const answer = await answerService.Create(data);
 
         return response.json(answer);
     }

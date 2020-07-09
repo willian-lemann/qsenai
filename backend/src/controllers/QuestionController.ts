@@ -1,16 +1,12 @@
 import { Request, Response } from 'express';
 
-import IQuestionService from '../interfaces/IQuestionService';
+import QuestionService from '../services/QuestionService';
 
-let _questionService: IQuestionService;
+const questionService = new QuestionService();
 
 class QuestionController {
-    constructor(questionService: IQuestionService) {
-        _questionService = questionService;
-    }
-
-    async Index(response: Response) {
-        const [questions, count] = await _questionService.Index();
+    async Index(request: Request, response: Response) {
+        const [questions, count] = await questionService.Index();
 
         response.header('x-total-count', count['count(*)']);
 
@@ -23,7 +19,7 @@ class QuestionController {
         if (question_id == null || !Number(question_id))
             return response.status(400).send({ error: 'question id need to be a number' });
 
-        const data = await _questionService.Show(Number(question_id));
+        const data = await questionService.Show(Number(question_id));
         const { question } = data;
 
         if (!question)
@@ -40,7 +36,7 @@ class QuestionController {
             return response.status(400).send({ error: 'user id need to be a number' });
 
 
-        const [questions, count] = await _questionService.AllByUserID(Number(user_id));
+        const [questions, count] = await questionService.AllByUserID(Number(user_id));
 
         if (questions.length == 0)
             return response.status(404).send({ error: 'user haven\'t made questions yet' });
@@ -53,7 +49,7 @@ class QuestionController {
     async Create(request: Request, response: Response) {
         const data = request.body;
 
-        const user = await _questionService.Create(data);
+        const user = await questionService.Create(data);
 
         return response.json(user);
     }
@@ -62,11 +58,11 @@ class QuestionController {
         const data = request.body;
         const { id } = request.params;
 
-        const question = await _questionService.Show(Number(id));
+        const question = await questionService.Show(Number(id));
 
         if (!question) response.status(404).json({ error: 'Question not found' });
-
-        const updateQuestion = await _questionService.Update(data, Number(id));
+         
+        const updateQuestion = await questionService.Update(data, Number(id));
 
         return response.json(updateQuestion);
     }
@@ -76,12 +72,12 @@ class QuestionController {
 
         if (id == null || !Number(id))
             return response.status(400).send({ error: 'question id need to be a number' });
-
-        const question = await _questionService.Show(Number(id));
+        
+        const question = await questionService.Show(Number(id));
 
         if (!question) response.status(404).json({ error: 'Question not found' });
-
-        const questionDeleted = await _questionService.Delete(Number(id));
+            
+        const questionDeleted = await questionService.Delete(Number(id));
 
         return response.json(questionDeleted);
     }
