@@ -51,15 +51,17 @@ class QuestionService implements IQuestionService {
     }
 
     async Update(updateQuestion: UpdateQuestion, id: number) {
-        const answers = await questionRepository.Show(id);
-
         const question = await questionRepository.Update(updateQuestion, id);
+
+       if (question !== 1) return null;
 
         return question;
     }
 
     async Delete(questionId: number) {
         const question = await questionRepository.Delete(questionId);
+
+        if (question !== 1) return null;
 
         return question;
     }
