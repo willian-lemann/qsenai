@@ -17,7 +17,6 @@ interface UpdateQuestion {
 }
 
 class QuestionService implements IQuestionService {
-
     async Index() {
         const questions = await questionRepository.Index();
         return questions;
@@ -39,16 +38,12 @@ class QuestionService implements IQuestionService {
     }
 
     async Update(updateQuestion: UpdateQuestion, id: number) {
-        const answers = await questionRepository.Show(id);
-
         const question = await questionRepository.Update(updateQuestion, id);
-
         return question;
     }
 
     async Delete(questionId: number) {
         const question = await questionRepository.Delete(questionId);
-
         return question;
     }
 };

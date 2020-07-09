@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { secret, expiresIn } from '../config/auth.json';
+import Queue from 'bull';
 
 import AuthRepository from '../repository/AuthRepository';
 import IAuthService from '../interfaces/IAuthService';
@@ -27,9 +28,18 @@ const GenerateToken = (params: tokenParams) => {
 }
 
 class AuthService implements IAuthService {
+
     async Register(request: Request, response: Response) {
         const { email } = request.body;
         const newUser: NewUser = request.body;
+
+        const queue = new Queue('queue');
+        const job = await queue.add({
+            email: 'willianleman@hotmail.com'
+        });
+
+
+
 
         try {
             if (await authRepository.findByEmail(email))
