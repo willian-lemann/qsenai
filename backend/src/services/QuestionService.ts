@@ -8,7 +8,7 @@ class QuestionService {
 
     async Index(request: Request, response: Response) {
         const [questions, count] = await questionRepository.Index();
-        console.log(questions)
+
         response.header('x-total-count', count['count(*)']);
 
         return response.json(questions);
