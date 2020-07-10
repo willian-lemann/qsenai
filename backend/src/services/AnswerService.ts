@@ -1,29 +1,23 @@
+import { Request, Response } from 'express';
+
 import AnswerRepository from '../repository/AnswerRepository';
-import IAnswerService from '../interfaces/IAnswerService';
 
 const answerRepository = new AnswerRepository();
 
-interface NewAnswer {
-    content: string,
-    question_id: number,
-}
+class AnswerService {
 
-class AnswerService implements IAnswerService {
+    async Create(request: Request, response: Response) {
+        const { content, question_id, user_id } = request.body;
 
-    private static instance: AnswerService;
-
-    private AnswerService() { }
-
-    public static getInstance(): AnswerService {
-        if (!AnswerService.instance) {
-            AnswerService.instance = new AnswerService();
+        const newAnswer = {
+            content,
+            question_id,
+            user_id
         }
-        return AnswerService.instance;
-    }
 
-    async Create(newAnswer: NewAnswer) {
         const answer = await answerRepository.Create(newAnswer);
-        return answer;
+
+        return response.json(answer);
     }
 };
 

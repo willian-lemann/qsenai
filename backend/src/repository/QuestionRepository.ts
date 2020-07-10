@@ -1,5 +1,4 @@
 import knex from '../database/connection';
-import IQuestionRepository from '../interfaces/IQuestionRepository';
 
 interface NewQuestion {
     subject: string,
@@ -14,8 +13,8 @@ interface UpdateQuestion {
     user_id: number,
 }
 
-class QuestionRepository implements IQuestionRepository {
-    
+class QuestionRepository {
+
     async Index() {
         const [count] = await knex('question').count();
 
@@ -85,8 +84,6 @@ class QuestionRepository implements IQuestionRepository {
             .where('question.id', questionId)
             .del()
     }
-
-
 }
 
 export default QuestionRepository;

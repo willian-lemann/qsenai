@@ -26,47 +26,29 @@ interface NewUser {
 interface tokenParams {
     id: number,
 }
- 
-class AuthService implements IAuthService {
 
-    private static instance: AuthService;
-
-    private AuthService() {}
-
-    public static getInstance(): AuthService {
-        if (!AuthService.instance) {
-            AuthService.instance = new AuthService();
-        }
-
-        return AuthService.instance;
-    }
-
+class AuthService {
 
     async Register(request: Request, response: Response) {
         const { email } = request.body;
         const newUser: NewUser = request.body;
 
-        try {
-            if (await authRepository.findByEmail(email))
-                return response.status(400).json({ error: 'User already exists.' });
+        if (await authRepository.findByEmail(email))
+            return response.status(400).json({ error: 'User already exists.' });
 
-            const hash = await bcrypt.hash(newUser.password, 10);
-            newUser.password = hash;
+        const hash = await bcrypt.hash(newUser.password, 10);
+        newUser.password = hash;
 
-            await authRepository.Register(newUser);
+        await authRepository.Register(newUser);
 
-            newUser.password = undefined;
+        newUser.password = undefined;
 
-            const token = GenerateToken({ id: newUser.id })
+        const token = GenerateToken({ id: newUser.id })
 
-            return response.json({
-                newUser,
-                token,
-            });
-
-        } catch (error) {
-            return response.status(400).json({ error: 'Registration failed.' })
-        }
+        return response.json({
+            newUser,
+            token,
+        });
     }
 
     async Authenticate(request: Request, response: Response) {

@@ -1,69 +1,80 @@
+import { Request, Response } from 'express';
+
 import QuestionRepository from '../repository/QuestionRepository';
-import IQuestionService from '../interfaces/IQuestionService';
 
 const questionRepository = new QuestionRepository();
 
-interface NewQuestion {
-    subject: string,
-    content: string,
-    user_id: number,
-}
+class QuestionService {
 
-interface UpdateQuestion {
-    id: number,
-    subject: string,
-    content: string,
-    user_id: number
-}
+    async Index(request: Request, response: Response) {
+        const [questions, count] = await questionRepository.Index();
+        console.log(questions)
+        response.header('x-total-count', count['count(*)']);
 
-class QuestionService implements IQuestionService {
-
-    private static instance: QuestionService;
-
-    private QuestionService() {}
-
-    public static getInstance(): QuestionService {
-        if (!QuestionService.instance) {
-            QuestionService.instance = new QuestionService();
-        }
-
-        return QuestionService.instance;
+        return response.json(questions);
     }
 
-    async Index() {
-        const questions = await questionRepository.Index();
-        return questions;
+    async AllByUserID(request: Request, response: Response) {
+        const { user_id } = request.params;
+
+        if (user_id == null || !Number(user_id))
+            return response.status(400).send({ error: 'user id need to be a number' });
+
+
+        const [questions, count] = await questionRepository.AllByUserID(Number(user_id));
+
+        if (questions.length == 0)
+            return response.status(404).send({ error: 'user haven\'t made questions yet' });
+
+        response.header('X-total-count', count['count(*)']);
+
+        return response.json(questions);
     }
 
-    async AllByUserID(userId: number) {
-        const questions = await questionRepository.AllByUserID(userId);
-        return questions;
+    async Show(request: Request, response: Response) {
+        const { question_id } = request.params;
+
+        if (question_id == null || !Number(question_id))
+            return response.status(400).send({ error: 'question id need to be a number' });
+
+        const data = await questionRepository.Show(Number(question_id));
+        const { question } = data;
+
+        if (!question)
+            return response.status(404).send({ error: 'question doens\'t exist' });
+
+        return response.json(data);
     }
 
-    async Show(questionId: number) {
-        const question = await questionRepository.Show(questionId);
-        return question;
+    async Create(request: Request, response: Response) {
+        const newQuestion = request.body;
+
+        const user = await questionRepository.Create(newQuestion);
+        return response.json(user);
     }
 
-    async Create(newQuestion: NewQuestion) {
-        const question = await questionRepository.Create(newQuestion);
-        return question;
+    async Update(request: Request, response: Response) {
+        const newQuestion = request.body;
+        const { id } = request.params;
+
+        const updateQuestion = await questionRepository.Update(newQuestion, Number(id));
+
+        if (!updateQuestion) response.status(404).json({ error: 'Question not found' });
+
+        return response.json(updateQuestion);
     }
 
-    async Update(updateQuestion: UpdateQuestion, id: number) {
-        const question = await questionRepository.Update(updateQuestion, id);
+    async Delete(request: Request, response: Response) {
+        const { id } = request.params;
 
-       if (question !== 1) return null;
+        if (id == null || !Number(id))
+            return response.status(400).send({ error: 'question id need to be a number' });
 
-        return question;
-    }
+        const questionDeleted = await questionRepository.Delete(Number(id));
 
-    async Delete(questionId: number) {
-        const question = await questionRepository.Delete(questionId);
+        if (!questionDeleted) response.status(404).json({ error: 'Question not found' });
 
-        if (question !== 1) return null;
-
-        return question;
+        return response.json(questionDeleted);
     }
 };
 
