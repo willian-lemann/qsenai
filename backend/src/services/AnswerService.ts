@@ -8,12 +8,6 @@ interface NewAnswer {
 }
 
 class AnswerService {
-    async Index(questionId: number) {
-        const answers = await answerRepository.Index(questionId);
-
-        return answers;
-    }
-
     async Create(newAnswer: NewAnswer) {
         const answer = await answerRepository.Create(newAnswer);
 

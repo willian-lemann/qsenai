@@ -1,22 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import { createStyles, makeStyles, useTheme, Theme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import ListItemText from '@material-ui/core/ListItemText';
-import { GoChevronLeft } from 'react-icons/go';
 
 import './index.css'
 
-import Header from '../Header';
+import LocalStorageService from '../../services/AxiosConfig/LocalStorageService';
+
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import { GoChevronLeft } from 'react-icons/go';
+import { FiUser, FiLogOut } from 'react-icons/fi';
+
 import UserHeader from '../UserHeader';
-import { FiUser } from 'react-icons/fi';
 
 const drawerWidth = 270;
 
@@ -24,15 +19,6 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             display: 'flex',
-        },
-
-        appBar: {
-            zIndex: theme.zIndex.appBar + 1,
-            transition: theme.transitions.create(['width', 'margin'], {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.leavingScreen,
-            }),
-            height: 80,
         },
 
         appBarShift: {
@@ -79,27 +65,28 @@ const useStyles = makeStyles((theme: Theme) =>
         },
 
         content: {
-            marginTop: 45,
-            background: '#f0f0f0',
             width: '100%',
         },
     }),
 );
 
 const DrawerNav: React.FC = ({ children }) => {
+    const localStorageService = LocalStorageService();
     const classes = useStyles();
     const [isOpen, SetIsOpen] = useState(true);
+    const [loggedUser, SetLoggedUser] = useState<string | null>('');
+
+    const ClearLocalStorage = () => {
+        localStorageService.ClearToken();
+    };
+
+    useEffect(() => {
+        const { user } = localStorageService.GetToken();
+        SetLoggedUser(user);
+    }, [localStorageService]);
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: isOpen,
-                })}>
-                <Header />
-            </AppBar>
             <Drawer
                 variant="permanent"
                 className={clsx(classes.drawer, {
@@ -125,16 +112,21 @@ const DrawerNav: React.FC = ({ children }) => {
                     }
 
                     <div className={!isOpen ? classes.hide : 'drawer-container'}>
-                        <UserHeader>
+                        <UserHeader user={loggedUser}>
                             <GoChevronLeft className='arrowLeftIcon' onClick={() => SetIsOpen(!isOpen)} />
                         </UserHeader>
+                        <footer>
+                            <Link to='/login' onClick={ClearLocalStorage}>
+                                Logout
+                             <FiLogOut className='logoutIcon' size={20} color='black' />
+                            </Link>
+                        </footer>
                     </div>
                 </div>
 
             </Drawer>
 
             <main className={classes.content}>
-                <div className={classes.toolbar} />
                 {children}
             </main>
         </div>

@@ -8,9 +8,7 @@ export async function up(knex: Knex): Promise<any> {
         table.integer('user_id')
             .notNullable()
             .references('id')
-            .inTable('user');
-
-        table.timestamp('created_at');
+            .inTable('user'); 
     });
 }
 

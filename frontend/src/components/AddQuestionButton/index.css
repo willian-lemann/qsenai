@@ -55,3 +55,66 @@
 .add-question-button-secundary .plusIcon {
     color: #FF5617;
 }
+
+.dialog-container .dialog-title {
+    background: #f0f0f0;
+}
+
+.dialog-container .dialog-content {
+    height: 300px;
+    background: #f0f0f0;
+}
+
+.dialog-container .dialog-actions {
+    background: #f0f0f0;
+}
+
+.dialog-container .input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-container .subject-input {
+    height: 50px;
+    color: #444;
+    border: 0;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    outline: none;
+}
+
+.dialog-container .dialog-content .content-input {
+    margin-top: 30px;
+    color: #444;
+    border: 0;
+    padding: 0 35px;
+    border-radius: 8px;
+    outline: none;
+    height: 140px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.dialog-container .dialog-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialog-container .dialog-actions .cancelButton {
+    margin-left: 20px;
+    width: 150px;
+}
+
+.dialog-container .dialog-actions .submitButton {
+    margin-right: 20px;
+    background: #FF5617;
+    width: 150px;
+}
+
+.toastcontainer {
+    background: linear-gradient(to right, #FF5617, #f18056);
+    text-align: center;
+}

@@ -20,11 +20,7 @@ class AuthRepository {
 
     async Register(newUser: NewUser) {
         return await knex('user').insert(newUser);
-    }
-
-    async Authenticate() {
-
-    }
+    } 
 }
 
 export default AuthRepository;

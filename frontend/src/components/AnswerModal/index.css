@@ -1,0 +1,107 @@
+.add-answer-button {
+    border: 0;
+    border-radius: 8px;
+    background: #FF5617;
+    border-radius: 20px;
+    height: 40px;
+    width: 160px;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.add-answer-button span {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.add-answer-button .plusIcon {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.add-answer-button:hover {
+    background: #e46334;
+}
+
+.add-answer-button-secundary {
+    border: 0;
+    border-radius: 8px;
+    background: #f0f0f0;
+    height: 50px;
+    width: 200px;
+    margin-right: 120px;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.add-answer-button-secundary:hover {
+    background: #c2c1c1;
+}
+
+.add-answer-button-secundary span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FF5617;
+}
+
+.add-answer-button-secundary .plusIcon {
+    color: #FF5617;
+}
+
+.answer-dialog-container .delete-dialog-title {
+    background: #f0f0f0;
+}
+
+.answer-dialog-container .dialog-content {
+    height: 300px;
+    background: #f0f0f0;
+}
+
+.answer-dialog-container .dialog-actions {
+    background: #f0f0f0;
+}
+
+.answer-dialog-container .dialog-content .answer-content-input {
+    margin-top: 30px;
+    color: #444;
+    border: 0;
+    padding: 0 35px;
+    border-radius: 8px;
+    outline: none;
+    height: 140px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.answer-dialog-container .dialog-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.answer-dialog-container .dialog-actions .cancelButton {
+    margin-left: 20px;
+    width: 150px;
+}
+
+.answer-dialog-container .dialog-actions .submitButton {
+    margin-right: 20px;
+    background: #FF5617;
+    width: 150px;
+}
+
+.toastcontainer {
+    background: linear-gradient(to right, #FF5617, #f18056);
+    text-align: center;
+}

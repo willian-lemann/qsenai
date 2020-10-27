@@ -3,14 +3,24 @@ import React, {
     FormEvent,
     ChangeEvent
 } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import LocalStorageService from '../../services/AxiosConfig/LocalStorageService';
 
 import './index.css';
 
 import { FiLogIn } from 'react-icons/fi';
-import api from '../../service/api';
+import api from '../../services/api';
+
+interface UserRegisterResponse {
+    newUser: {
+        name: string,
+    },
+    token: string
+}
 
 const RegisterForm: React.FC = () => {
+    const history = useHistory();
+    const localStorageService = LocalStorageService();
     const [selectedGraduation, SetSelectedGraduation] = useState('');
     const [formData, SetFormData] = useState({
         name: '',
@@ -29,7 +39,7 @@ const RegisterForm: React.FC = () => {
         SetSelectedGraduation(value);
     }
 
-    const HandleRegister = (event: FormEvent) => {
+    const HandleRegister = async (event: FormEvent) => {
         event.preventDefault();
 
         const { name, email, password } = formData;
@@ -38,38 +48,57 @@ const RegisterForm: React.FC = () => {
 
         const data = {
             name,
+            graduation,
             email,
-            password,
-            graduation           
+            password
         }
 
-        console.log('foi: ', data);
+        console.log(data)
+        try {
+            const { token: hasToken } = localStorageService.GetToken();
 
-        api.post('/register', data)
-            .then(response => console.log('retorno: ' , response.data));       
-    }
+            if (!hasToken) {
+                localStorageService.ClearToken();
+            }
+
+            const response = await api.post<UserRegisterResponse>('/register', data);
+            const { newUser: { name }, token } = response.data;
+            localStorageService.SetToken(token, name);
+
+            history.push('/');
+
+        } catch (error) {
+            localStorageService.ClearToken();
+        }
+    };
 
     return (
         <form onSubmit={HandleRegister}>
             <input
+                required
                 name='name'
                 type="text"
                 placeholder='Digite seu nome'
                 onChange={HandleInputChange}
             />
-            <select name="graduation" id="graduation" onChange={HandleSelectChange}>
+
+            <select required name="graduation" id="graduation" onChange={HandleSelectChange}>
                 <option value="0">Selecione seu curso</option>
                 <option value="Telecom">Telecom</option>
                 <option value="Redes de computadores">Redes de computadores</option>
                 <option value="Analise e desenvolvimento de sistemas">Analise e desenvolvimento de sistemas</option>
             </select>
+
             <input
+                required
                 name='email'
                 type="email"
                 placeholder='Digite seu e-mail'
                 onChange={HandleInputChange}
             />
+
             <input
+                required
                 name='password'
                 type="password"
                 placeholder='Senha'

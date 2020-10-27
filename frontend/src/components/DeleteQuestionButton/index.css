@@ -1,0 +1,66 @@
+.add-delete-button {
+    border: 0;
+    position: absolute;
+    top: 120px;
+    right: -5px;
+    border-radius: 8px;
+    background: rgb(214, 93, 93);
+    height: 30px;
+    width: 40px;
+    margin-right: 120px;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.add-delete-button span {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.add-delete-button .trashIcon {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.add-delete-button:hover {
+    background: rgb(168, 82, 82);
+}
+
+.add-delete-button-secundary {
+    border: 0;
+    border-radius: 8px;
+    background: #f0f0f0;
+    height: 50px;
+    width: 200px;
+    margin-right: 120px;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.add-delete-button-secundary:hover {
+    background: #c2c1c1;
+}
+
+.add-delete-button-secundary span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FF5617;
+}
+
+.add-delete-button-secundary .trashIcon {
+    color: #FF5617;
+}
+
+.delete-dialog-container .delete-dialog-container .delete-question-modal-actions .modal-delete-modal .modal-delete-modal {
+    background: rgb(214, 93, 93);
+}

@@ -1,0 +1,65 @@
+.detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail-container .question-section {
+    background-color: #f0f0f0;
+    margin-top: 20px;
+    border-radius: 8px;
+    height: 180px;
+    width: 1100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.detail-container .question-section .action-buttons-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.detail-container .question-section .action-buttons-container .actions-group {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 500px;
+    height: 100%;
+}
+
+.detail-container .question-section strong {
+    font-size: 20px;
+    align-self: flex-start;
+    padding: 0 45px;
+}
+
+.detail-container .question-section p {
+    font-size: 18px;
+    color: #444;
+    align-self: flex-start;
+    padding: 0 45px;
+}
+
+.detail-container .answer-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    overflow-y: auto;
+}
+
+.detail-container .question-section .action-buttons-container .add-answer-button {
+    align-self: flex-start;
+    margin-left: 40px;
+}
+
+.detail-container .answer-section .answer-divisor {
+    width: 1000px;
+}
+
+.detail-container .answer-section .answer-divisor .divisor {
+    margin-top: 10px;
+    color: #444;
+}

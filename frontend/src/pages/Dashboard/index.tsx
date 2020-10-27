@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './index.css';
 
 import Layout from '../../components/Layout';
-import DrawerNav from '../../components/DrawerNav';
+import Header from '../../components/Header';
 
 const Dashboard: React.FC = () => {
 
     return (
         <div className="dashboard-container">
-            <DrawerNav>
-                <Layout />
-            </DrawerNav>
+            <Header />
+            <Layout />
         </div>
     );
 }

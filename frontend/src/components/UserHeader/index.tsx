@@ -2,15 +2,19 @@ import React from 'react';
 
 import './index.css';
 
-const UserHeader: React.FC = ({ children: Button }) => {
+interface UserHeaderProps {
+    user: string | null
+}
+
+const UserHeader: React.FC<UserHeaderProps> = ({ children: Button, user }) => {
     return (
         <div className="user-info-section">
             <div className='user-info-content'>
-                <span>Willian Leman Rocha</span>
-                <p> * On-line</p>
+                <span>{user}</span>
+                <p className={user !== '' ? "isOnline" : "isNotOnline"}>On-line</p>
             </div>
             {Button}
-        </div>
+        </div >
 
     );
 }

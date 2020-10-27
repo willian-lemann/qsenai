@@ -1,8 +1,7 @@
 .dashboard-container {
+    background: #fff;
     height: 100vh;
-    background: #f0f0f0;
     width: 100%;
     display: flex;
     flex-direction: column;
-    overflow: hidden
 }

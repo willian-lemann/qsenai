@@ -1,0 +1,62 @@
+.add-update-button {
+    border: 0;
+    position: absolute;
+    right: 60px;
+    top: 120px;
+    border-radius: 8px;
+    background: #e46334;
+    height: 30px;
+    width: 40px;
+    margin-right: 120px;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.add-update-button span {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.add-update-button .plusIcon {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.add-update-button:hover {
+    background: #e46334;
+}
+
+.add-update-button-secundary {
+    border: 0;
+    border-radius: 8px;
+    background: #f0f0f0;
+    height: 50px;
+    width: 200px;
+    margin-right: 120px;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.add-update-button-secundary:hover {
+    background: #c2c1c1;
+}
+
+.add-update-button-secundary span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FF5617;
+}
+
+.add-update-button-secundary .plusIcon {
+    color: #FF5617;
+}
