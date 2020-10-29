@@ -49,22 +49,26 @@ class QuestionController {
     async Create(request: Request, response: Response) {
         const data = request.body;
 
-        const user = await questionService.Create(data);
+        const createdQuestion = await questionService.Create(data);
 
-        return response.json(user);
+        return response.json(createdQuestion);
     }
 
     async Update(request: Request, response: Response) {
         const data = request.body;
         const { id } = request.params;
 
-        const question = await questionService.Show(Number(id));
+        const { question } = await questionService.Show(Number(id));
 
         if (!question) response.status(404).json({ error: 'Question not found' });
-         
+
         const updateQuestion = await questionService.Update(data, Number(id));
 
-        return response.json(updateQuestion);
+        if (updateQuestion === 0) {
+            return response.status(400).json({ message: 'Error in edit question.' });
+        }
+
+        return response.json(data);
     }
 
     async Delete(request: Request, response: Response) {
@@ -72,11 +76,11 @@ class QuestionController {
 
         if (id == null || !Number(id))
             return response.status(400).send({ error: 'question id need to be a number' });
-        
+
         const question = await questionService.Show(Number(id));
 
         if (!question) response.status(404).json({ error: 'Question not found' });
-            
+
         const questionDeleted = await questionService.Delete(Number(id));
 
         return response.json(questionDeleted);

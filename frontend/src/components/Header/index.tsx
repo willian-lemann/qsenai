@@ -6,7 +6,7 @@ import './index.css';
 import { FiArrowLeft } from 'react-icons/fi';
 
 import QuestionsNumberCard from '../QuestionsNumberCard';
-import AddQuestionButton from '../AddQuestionButton';
+import AddQuestion from '../AddQuestion';
 
 interface HeaderProps {
     detailHeader?: boolean,
@@ -32,7 +32,7 @@ const Header: React.FC<HeaderProps> = ({ detailHeader, value }) => {
                     :
                     [
                         <QuestionsNumberCard />,
-                        <AddQuestionButton value='Lançar Pergunta' />
+                        <AddQuestion value='Lançar Pergunta' />
                     ]
             }
         </div>

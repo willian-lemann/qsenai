@@ -3,4 +3,25 @@
   height: 95px;
   width: 250px;
   border-radius: 8px;
+  list-style: none;
+  margin-left: 35px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.question-card-container strong {
+  font-size: 18px;
+  color: #000;
+  text-align: center;
+}
+
+.question-card-container p {
+  font-size: 18px;
+  color: #848080;
+  text-align: center;
 }

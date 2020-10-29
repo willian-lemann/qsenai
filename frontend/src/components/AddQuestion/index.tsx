@@ -14,21 +14,35 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useQuestions } from '../../hooks/useQuestion';
+import { AxiosResponse } from 'axios';
+
 interface Question {
+    id: number,
     subject: string,
-    content: string
+    content: string,
+    user_id: number,
+    owner: string,
+    email: string,
+    graduation: string
 }
 
-interface AddQuestionButtonProps {
+interface QuestionFormData {
+    subject: string,
+    content: string,
+}
+
+interface AddQuestionProps {
     value: string
 }
 
-const AddQuestionButton: React.FC<AddQuestionButtonProps> = ({ value }) => {
+const AddQuestion: React.FC<AddQuestionProps> = ({ value }) => {
     const [open, SetOpen] = useState(false);
-    const [questionFormData, SetQuestionFormData] = useState<Question>({
+    const [questionFormData, SetQuestionFormData] = useState<QuestionFormData>({
         subject: '',
         content: ''
     });
+    const { questions, setQuestions } = useQuestions();
 
     const Notify = () => toast('Questão adicionada com sucesso!', {
         type: 'success',
@@ -56,9 +70,15 @@ const AddQuestionButton: React.FC<AddQuestionButtonProps> = ({ value }) => {
             content
         };
 
-        const question = await api.post('/questions', data);
+        const questionResponse = await api.post<Question>('/questions', data);
 
-        question !== null && Notify();
+        if (!questionResponse) {
+            return null;
+        }
+
+        Notify();
+
+        setQuestions([...questions, questionResponse.data]);
 
         HandleClose();
     };
@@ -109,4 +129,4 @@ const AddQuestionButton: React.FC<AddQuestionButtonProps> = ({ value }) => {
     );
 }
 
-export default AddQuestionButton;
+export default AddQuestion;

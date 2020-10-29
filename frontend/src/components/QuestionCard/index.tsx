@@ -13,9 +13,8 @@ interface QuestionCardProps {
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({ question: { id, subject, content } }) => {
-
     const history = useHistory();
-    const previewedContent = content.substring(0, 28);
+    const previewedContent = content !== undefined && content.substring(0, 28);
 
     const HandleDetail = (questionId: number) => {
         history.push(`/detail/${questionId}`);

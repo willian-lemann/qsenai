@@ -10,7 +10,7 @@ const QuestionsNumberCard: React.FC = () => {
     const loadQuestions = async () => {
         const response = await api.get('/questions');
         const countedQuestions = parseInt(response.headers['x-total-count']);
-
+        console.log(countedQuestions)
         SetQuestionsNumber(countedQuestions);
     };
 

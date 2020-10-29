@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import api from '../../services/api';
+import { useQuestions } from '../../hooks/useQuestion';
 
 interface Answer {
   content: string,
@@ -38,6 +39,7 @@ const AnswerModal: React.FC<QuestionProps> = ({ data: { id, subject, content } }
   const [answerFormData, SetAnswerFormData] = useState({
     answerContent: ''
   });
+  const { questions, setQuestions } = useQuestions();
 
   const Notify = () => toast("Resposta enviada!", {
     type: 'success',
@@ -54,8 +56,8 @@ const AnswerModal: React.FC<QuestionProps> = ({ data: { id, subject, content } }
   };
 
   const HandleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    SetAnswerFormData({ ...answerFormData, [name]: value });
+    const { value } = event.target;
+    SetAnswerFormData({ answerContent: value });
   }
 
   const HandleSubmitAnswer = async () => {
@@ -67,6 +69,7 @@ const AnswerModal: React.FC<QuestionProps> = ({ data: { id, subject, content } }
     };
 
     const answer = await api.post('/answers', data);
+
 
     answer !== null && Notify();
 

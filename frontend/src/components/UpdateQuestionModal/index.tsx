@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import api from '../../services/api';
 
 import './index.css';
@@ -14,6 +14,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useQuestions } from '../../hooks/useQuestion';
 
 
 
@@ -23,15 +24,15 @@ interface QuestionProps {
     subject?: string,
     content?: string,
     owner?: string,
-  }
+  },
+  handleChange: Dispatch<SetStateAction<any>>
+  value: any
 }
 
-const UpdateQuestionModal: React.FC<QuestionProps> = ({ data: { id, subject, content, owner } }) => {
+const UpdateQuestionModal: React.FC<QuestionProps> = ({ data: { id, subject, content, owner }, value, handleChange }) => {
   const [open, setOpen] = useState(false);
-  const [updateQuestionFormData, SetUpdateQuestionFormData] = useState({
-    content: '',
-    subject: ''
-  });
+
+  const { questions, setQuestions } = useQuestions();
 
   const Notify = (value: string) => toast(value, {
     type: 'success',
@@ -46,22 +47,24 @@ const UpdateQuestionModal: React.FC<QuestionProps> = ({ data: { id, subject, con
     setOpen(false);
   };
 
-  const HandleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    SetUpdateQuestionFormData({ ...updateQuestionFormData, [name]: value });
-  }
-
   const HandleSendUpdateQuestion = async () => {
-    const { content, subject } = updateQuestionFormData;
+    const { content, subject } = value;
 
     const data = {
       content,
       subject
     };
 
-    const UpdateQuestion = await api.put(`/questions/${id}`, data);
+    const updatedQuestionResponse = await api.put(`/questions/${id}`, data);
 
-    UpdateQuestion && Notify('Questão alterada com sucesso!');
+    if (!updatedQuestionResponse.data) {
+      return null;
+    }
+
+    const updatedQuestion = questions.findIndex(question => question.id === updatedQuestionResponse.data.id);
+
+    setQuestions([questions[updatedQuestion], updatedQuestionResponse.data])
+    Notify('Questão alterada com sucesso!');
 
     HandleClose();
   }
@@ -84,7 +87,7 @@ const UpdateQuestionModal: React.FC<QuestionProps> = ({ data: { id, subject, con
             rows={4}
             variant="filled"
             fullWidth
-            onChange={HandleInputChange}
+            onChange={handleChange}
           />
           <TextField
             id="outlined-multiline-static"
@@ -95,7 +98,7 @@ const UpdateQuestionModal: React.FC<QuestionProps> = ({ data: { id, subject, con
             rows={4}
             variant="filled"
             fullWidth
-            onChange={HandleInputChange}
+            onChange={handleChange}
           />
         </DialogContent>
         <DialogActions>

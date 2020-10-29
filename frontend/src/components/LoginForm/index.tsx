@@ -23,9 +23,7 @@ const LoginForm: React.FC = () => {
   const history = useHistory();
   const localStorageService = LocalStorageService();
 
-  const [userCredencialsFormData, SetUserCredencialsFormData] = useState<
-    UserCredencials
-  >({
+  const [userCredencialsFormData, SetUserCredencialsFormData] = useState<UserCredencials>({
     email: "",
     password: "",
   });
@@ -47,6 +45,7 @@ const LoginForm: React.FC = () => {
 
     try {
       const response = await api.post<UserResponse>("/authenticate", data);
+
       const {
         user: { name },
         token,

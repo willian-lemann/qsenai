@@ -67,7 +67,7 @@ class AuthService {
         user.password = undefined;
 
         const token = GenerateToken({ id: user.id })
-
+   
         return response.json({
             user,
             token,

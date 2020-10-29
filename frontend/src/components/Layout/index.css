@@ -5,26 +5,35 @@
      flex-wrap: wrap;
  }
 
- .layout-container ul .question-card-container {
-     list-style: none;
-     margin-left: 35px;
-     margin-top: 25px;
-     margin-bottom: 10px;
-     cursor: pointer;
+ .layout-container section {
+     height: 60px;
      display: flex;
-     flex-direction: column;
-     justify-content: center;
+     justify-content: flex-start;
      align-items: center;
  }
 
- .layout-container ul .question-card-container strong {
-     font-size: 20px;
-     color: #000;
-     text-align: center;
+ .layout-container section input {
+     margin-left: 40px;
+     padding: 10px;
+     height: 44px;
+     outline: none;
+     width: 400px;
+     font-size: 18px;
+     border: 1px solid #444;
+     background-color: #f0f0f0;
+     border: none;
  }
 
- .layout-container ul .question-card-container p {
-     font-size: 20px;
-     color: #848080;
-     text-align: center;
+ .layout-container section button {
+     background-color: #FF5617;
+     margin-left: 10px;
+     border: none;
+     outline: none;
+     height: 44px;
+     width: 100px;
+     font-size: 18px;
+     color: #fff;
+     border-top-right-radius: 3px;
+     border-bottom-right-radius: 3px;
+     cursor: pointer;
  }

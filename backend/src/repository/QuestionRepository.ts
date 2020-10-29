@@ -66,22 +66,32 @@ class QuestionRepository {
     }
 
     async Create(newQuestion: NewQuestion) {
-        return await knex('question').insert(newQuestion);
+        const question = await knex('question').insert(newQuestion);
+
+        const createdQuestion = await knex('question')
+            .select('question.*')
+            .select('user.name as owner')
+            .select('user.email')
+            .select('user.graduation')
+            .join('user', 'question.user_id', '=', 'user.id')
+            .where('question.id', question[0]).first();
+
+        return createdQuestion;
     }
 
     async Update(updateQuestion: UpdateQuestion, id: number) {
         return await knex('question')
-        .where('id', id)
-        .update({
-            subject: updateQuestion.subject,
-            content: updateQuestion.content
-        });
+            .where('id', id)
+            .update({
+                subject: updateQuestion.subject,
+                content: updateQuestion.content
+            });
     }
 
     async Delete(questionId: number) {
         return await knex('question')
-        .where('question.id', questionId)
-        .del()
+            .where('question.id', questionId)
+            .del()
     }
 
 

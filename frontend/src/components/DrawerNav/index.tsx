@@ -116,7 +116,7 @@ const DrawerNav: React.FC = ({ children }) => {
                             <GoChevronLeft className='arrowLeftIcon' onClick={() => SetIsOpen(!isOpen)} />
                         </UserHeader>
                         <footer>
-                            <Link to='/login' onClick={ClearLocalStorage}>
+                            <Link to='/login' onClick={() => ClearLocalStorage()}>
                                 Logout
                              <FiLogOut className='logoutIcon' size={20} color='black' />
                             </Link>

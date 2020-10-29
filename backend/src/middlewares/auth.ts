@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { secret } from '../config/auth.json';
 
 export = (request: Request, response: Response, next: NextFunction) => {
-    const authHeader = request.headers.authorization; // variavel application
+    const authHeader = request.headers.authorization;
 
     if (!authHeader)
         return response.status(401).json({ error: 'No token provided.' });

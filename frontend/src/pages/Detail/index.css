@@ -20,6 +20,7 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+    position: relative;
 }
 
 .detail-container .question-section .action-buttons-container .actions-group {
@@ -28,6 +29,9 @@
     align-items: center;
     width: 500px;
     height: 100%;
+    position: absolute;
+    bottom: 230px;
+    right:-20px;
 }
 
 .detail-container .question-section strong {

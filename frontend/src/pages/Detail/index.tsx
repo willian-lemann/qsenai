@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import api from '../../services/api';
 
@@ -35,28 +35,46 @@ interface QuestionResponse {
     answers: Answer[]
 }
 
+interface Params {
+    id: string
+}
+
 const Detail: React.FC = () => {
     const localStorageService = LocalStorageService();
-    const { id: question_id } = useParams();
-    const [loggedUser, SetLoggedUser] = useState<string | null>('');
+    const { id: question_id } = useParams<Params>();
+    const [loggedUser, SetLoggedUser] = useState<string>('');
     const [question, SetQuestion] = useState<Question>({});
     const [answers, SetAnswers] = useState<Answer[]>();
     const numberOfAnswers = answers?.length;
     const { id, subject, content, owner } = question;
+   
+    const HandleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        SetQuestion({ ...question, [name]: value });
+    }
 
-    const loadQuestion = async () => {
-        const response = await api.get<QuestionResponse>(`/questions/${question_id}`);
-        SetQuestion(response.data.question);
-        SetAnswers(response.data.answers)
+    const isOwnerAndLoggedUserAndHasAsnwer = (owner?: string, loggedUser?: string, numberOfAnswers?: number) => {
+        return owner === loggedUser && numberOfAnswers === 0;
+    }
+
+    const isOnwerAndLoggedTheSameUser = (owner?: string, loggedUser?: string) => {
+        return owner === loggedUser;
     }
 
     useEffect(() => {
         const { user } = localStorageService.GetToken();
 
-        loadQuestion();
-        SetLoggedUser(user);
+        if (user)
+            SetLoggedUser(user);
 
-    }, []);
+        const loadQuestion = async () => {
+            const response = await api.get<QuestionResponse>(`/questions/${question_id}`);
+            SetQuestion(response.data.question);
+            SetAnswers(response.data.answers);
+        }
+
+        loadQuestion();
+    }, [question_id]);
 
     return (
         <div className="detail-container">
@@ -67,10 +85,15 @@ const Detail: React.FC = () => {
                 <p>{content}</p>
                 <div className="action-buttons-container">
                     <AnswerModal data={question} />
-
                     <div className='actions-group'>
-                        {(owner === loggedUser && numberOfAnswers === 0) && <UpdateQuestionModal data={question} />}
-                        {owner === loggedUser && <DeleteQuestionButton id={id} />}
+                        {isOwnerAndLoggedUserAndHasAsnwer(owner, loggedUser, numberOfAnswers) && (
+                            <UpdateQuestionModal
+                                value={question}
+                                handleChange={HandleInputChange}
+                                data={question}
+                            />
+                        )}
+                        {isOnwerAndLoggedTheSameUser(owner, loggedUser) && <DeleteQuestionButton id={id} />}
                     </div>
                 </div>
             </section>
